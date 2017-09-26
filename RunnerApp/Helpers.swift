@@ -57,7 +57,12 @@ extension String {
      0 5 1 1 2 3 4 5 6 7
      مدخلشى
      */
-    
+    var isBlank: Bool {
+        get {
+            let trimmed = trimmingCharacters(in: CharacterSet.whitespaces)
+            return trimmed.isEmpty
+        }
+    }
     //To check text field or String is blank or not
     var isBlankOrLessThan3chr: Bool {
         get {
@@ -107,6 +112,55 @@ extension String {
     
     
 }
+
+
+
+extension UITableView {
+    
+    func scrollToTop() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+}
+
+
+
+import CDAlertView
+extension UIView {
+    func showAlert(_ title : String? , _ sms : String? ,_ alertType : CDAlertViewType ,_ action:( ()->())?) {
+        
+        
+        let alert = CDAlertView(title: title, message: sms, type: alertType)
+        alert.hideAnimations = { (center, transform, alpha) in
+            transform = CGAffineTransform(scaleX: 3, y: 3)
+            transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 90 ) / 180 )
+            alpha = 0
+            action?()
+        }
+        alert.hideAnimationDuration = 0.55
+        alert.show()
+    }
+    
+    func showSimpleAlert(_ title : String? , _ sms : String? ,_ alertType : CDAlertViewType ) {
+        
+        let alert = CDAlertView(title: title, message: sms, type: alertType)
+        alert.hideAnimations = { (center, transform, alpha) in
+            transform = CGAffineTransform(scaleX: 3, y: 3)
+            transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 90 ) / 180 )
+            alpha = 0
+        }
+        alert.hideAnimationDuration = 0.55
+        alert.show()
+    }
+    
+    func emptyTextFieldHandler(_ textF : UITextField,_ title : String,_ sms : String?,_ alertTyper : CDAlertViewType) {
+        self.showAlert(title, sms, alertTyper, {
+            
+            //            textF.becomeFirstResponder()
+        })
+    }
+}
+
 
 //extension UIImageView {
 //    func downloadedFrom(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {
