@@ -7,35 +7,94 @@
 //
 
 import UIKit
-
-class RegisterVC: UIViewController {
+import MICountryPicker
+class RegisterVC: UIViewController , MICountryPickerDelegate , UITextFieldDelegate{
 
     @IBOutlet weak var firstNameTxt: UITextField!
     @IBOutlet weak var lastNameTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
-    @IBOutlet weak var countCodeTxt: UITextField!
+
+    @IBOutlet weak var countryCodeSelectionBtn: UIButton!
     @IBOutlet weak var mobileNumTxt: UITextField!
     
-    
+    private let picker = MICountryPicker()
+    private var acceptedTerms = false
+
+    private var countryCOdeHasBeenSelected = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // delegate
+        picker.delegate = self
+        
+        // Optionally, set this to display the country calling codes after the names
+        picker.showCallingCodes = true
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    @IBAction func readTermsBtnAct(_ sender: UIButton) {
-    }
-    
-    @IBAction func backBtnAct(_ sender: UIButton) {
-    }
 
     
-    func checkValidation() -> Bool {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true 
+    }
+    
+    
+
+    
+    @IBAction func didReadTermsCheckHandler(_ sender: UIButton) {
+        
+        sender.isSelected = !sender.isSelected
+        
+        if sender.isSelected {
+            sender.setImage(#imageLiteral(resourceName: "001-checkbox"), for: .normal)
+        }else {
+            sender.setImage(#imageLiteral(resourceName: "002-uncheckedbox"), for: .normal)
+        }
+    }
+    @IBAction func readTermsBtnAct(_ sender: UIButton) {
+ 	
+    }
+    
+    @IBAction func countryCodeSelectionHandler(_ sender: UIButton) {
+        self.view.endEditing(true   )
+        navigationController?.pushViewController(picker, animated: true)
+        picker.didSelectCountryWithCallingCodeClosure = { name, code, dialCode in
+            print(dialCode)
+            if !dialCode.isBlank{
+                self.countryCodeSelectionBtn.setTitle("\(dialCode)", for: .normal)
+                self.countryCOdeHasBeenSelected = true
+                self.picker.navigationController?.popViewController(animated: true)
+
+            }
+            
+        }
+    }
+    
+    
+    @IBAction func backBtnAct(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func submitHandler(_ sender: UIButton) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let initVC = storyBoard.instantiateViewController(withIdentifier: "RegisterationDetailsVC") as! RegisterationDetailsVC
+        self.present(initVC, animated: true, completion: nil)
+    }
+    func countryPicker(_ picker: MICountryPicker, didSelectCountryWithName name: String, code: String) {
+//        print(code)
+    }
+    
+    private func countryPicker(picker: MICountryPicker, didSelectCountryWithName name: String, code: String, dialCode: String) {
+//        print(dialCode)
+    }
+    
+    private func checkValidation() -> Bool {
         guard let fName = firstNameTxt.text , fName.isBlankOrLessThan3chr else {
             
             return false
@@ -56,12 +115,8 @@ class RegisterVC: UIViewController {
             return false
         }
         
-        guard let mobileCode = countCodeTxt.text else {
-            
-            return false
-        }
         
-        guard let mobilenum = mobileNumTxt.text else {
+        guard let mobilenum = mobileNumTxt.text , mobilenum.ispriceValue else {
             
             return false
         }

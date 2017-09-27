@@ -12,6 +12,7 @@ pod "CDAlertView"
 pod 'IQKeyboardManagerSwift'
 pod 'SwiftyJSON'
 pod 'SwiftyStarRatingView'
+pod 'MICountryPicker', :git => 'https://github.com/mustafaibrahim989/MICountryPicker.git', :branch => 'master'
 
 
 end

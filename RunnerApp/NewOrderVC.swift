@@ -175,12 +175,15 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
      */
     @IBAction func tabBarButtonsHandler(_ sender: UIButton) {
         
-        let vc = HelpeMenuVC(nibName: "HelpeMenuVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
-        
+      
         switch sender.tag {
-        case 0: break
-        case 1: break
+        case 0:
+            let vc = RegisterVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let vc = HelpeMenuVC(nibName: "HelpeMenuVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         case 2: break
         default: //3
             break

@@ -113,6 +113,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
-
+    func reload() {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateViewController(withIdentifier: "rootNav")
+    }
+    
+    func reloadWithAnimation() {
+        //        self.view.addSubview(self.activityInd)
+        //        self.activityInd.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        //        self.activityInd.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        var transition: UIViewAnimationOptions = .transitionFlipFromLeft
+        
+        let rootviewcontroller: UIWindow = ((UIApplication.shared.delegate?.window)!)!
+        let storyb = UIStoryboard(name: "Main", bundle: Bundle.main)
+        rootviewcontroller.rootViewController = storyb.instantiateViewController(withIdentifier: "rootNav")
+        let mainwindow = (UIApplication.shared.delegate?.window!)!
+        mainwindow.backgroundColor = UIColor(hue: 1, saturation: 1, brightness: 1, alpha: 1)
+        UIView.transition(with: mainwindow, duration: 0.55001, options: transition, animations: { () -> Void in
+        }) { (finished) -> Void in
+            
+            
+        }
+        
+    }
 }
+let ad = UIApplication.shared.delegate as! AppDelegate
 

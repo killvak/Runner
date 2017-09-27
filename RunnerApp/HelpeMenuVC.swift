@@ -27,6 +27,7 @@ class HelpeMenuVC: UIViewController {
         
     }
     
+    
     @IBAction func langSwitch(_ sender: UISwitch) {
         var transition: UIViewAnimationOptions = .transitionFlipFromLeft
         if L102Language.currentAppleLanguage() == "en" {
@@ -48,7 +49,9 @@ class HelpeMenuVC: UIViewController {
             
         }
     }
-    
+    @IBAction func backBtnAct(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     func reload() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         

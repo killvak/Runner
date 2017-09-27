@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.5.1)
   - CDAlertView (0.6.1)
   - IQKeyboardManagerSwift (5.0.1)
+  - MICountryPicker (0.2.2)
   - SwiftyJSON (3.1.4)
   - SwiftyStarRatingView (1.0.4)
 
@@ -9,16 +10,28 @@ DEPENDENCIES:
   - Alamofire (~> 4.5)
   - CDAlertView
   - IQKeyboardManagerSwift
+  - MICountryPicker (from `https://github.com/mustafaibrahim989/MICountryPicker.git`, branch `master`)
   - SwiftyJSON
   - SwiftyStarRatingView
+
+EXTERNAL SOURCES:
+  MICountryPicker:
+    :branch: master
+    :git: https://github.com/mustafaibrahim989/MICountryPicker.git
+
+CHECKOUT OPTIONS:
+  MICountryPicker:
+    :commit: 43a40241da087c81c4f26715283c12ac1335ebb2
+    :git: https://github.com/mustafaibrahim989/MICountryPicker.git
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   CDAlertView: cbb016e839ea49cddba06a78eebc2ac7978fba06
   IQKeyboardManagerSwift: 434f22d48340525bf1b92e0481a8c2539cc4a77e
+  MICountryPicker: 82122c5f918bc9f9e2c510793fffd188dc8d38ce
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   SwiftyStarRatingView: a2b0057700e0adeb8e7442c55d99cb53b531d2f4
 
-PODFILE CHECKSUM: 4187ba9d3644d1712cfb58363ec14e894e9cc0e6
+PODFILE CHECKSUM: 198e76bf42f4454a55db5d2a09752f24fa19636d
 
 COCOAPODS: 1.3.1

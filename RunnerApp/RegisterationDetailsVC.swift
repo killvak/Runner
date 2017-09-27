@@ -7,26 +7,37 @@
 //
 
 import UIKit
+import CDAlertView
 
 class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    //    @IBOutlet weak var listOfSelectionDataView: UIView!
+    
     @IBOutlet weak var containerView: UIView!
     
-    //    @IBOutlet weak var dataSelectionView: UIView!
     @IBOutlet weak var headerView: UIView!
     
     @IBOutlet weak var profilePickingBtn: UIButton!
     @IBOutlet weak var licensePickingBtn: UIButton!
     @IBOutlet weak var VehicleInsurancePickingBtn: UIButton!
-
+    
+    let activityInd : UIActivityIndicatorView = {
+        
+        let ai = UIActivityIndicatorView()
+        ai.color = .green
+        ai.activityIndicatorViewStyle = .whiteLarge
+        ai.startAnimating()
+        ai.translatesAutoresizingMaskIntoConstraints = false
+        return ai
+    }()
     var selectionDict : [Int: Bool] = [:]
     var imagesDict : [Int : UIImage] = [:]
     let picker = UIImagePickerController()
     
     var currentBtntag : Int?
     var shifts = ["Morning","Afternoon","Evening","Late Night"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,9 +76,13 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil 
+    }
+    
     @IBAction func imageSelectionTrigger(sender : UIButton) {
         photoFromLibrary()
-	
+        
         currentBtntag = sender.tag
     }
     func yesBtnSelected(_ sender : UIButton) {
@@ -79,7 +94,7 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     }
     
     func noBtnSelected(_ sender : UIButton) {
-         
+        
         selectionDict[sender.tag] = false
         handleCellBtnSelection(sender.tag, false)
         print("that's the selection List : \(selectionDict)")
@@ -101,18 +116,42 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
         }
     }
     
+    @IBAction func registerBtnHandler(_ sender: UIButton) {
+        
+        let alert = CDAlertView(title: "Done", message: "Welcome in Breeze", type: .success)
+        alert.hideAnimations = { (center, transform, alpha) in
+            transform = CGAffineTransform(scaleX: 3, y: 3)
+            alpha = 0
+            DispatchQueue.main.async {
+                self.view.isUserInteractionEnabled = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.679) {
+                    
+                    ad.reloadWithAnimation()
+                    
+                }
+            }
+        }
+        alert.hideAnimationDuration = 0.88
+        alert.show()
+        
+        
+        //        ad.reload()
+    }
+    
+    
     //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     //    {
     //        return 44
     //    }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        return headerView
-    }
+    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //
+    //        return headerView
+    //    }
     @IBAction func backBtnAct(_ sender: UIButton) {
-    
-     dismiss(animated: true, completion: nil)
+        
+        dismiss(animated: true, completion: nil)
     }
     
     //    @IBAction func dataSelectionBtns(_ sender: UIButton) {
@@ -204,7 +243,7 @@ extension RegisterationDetailsVC : UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         guard let tag =  currentBtntag else { return }
-                 var  chosenImage = UIImage()
+        var  chosenImage = UIImage()
         chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
         //            myImageView.contentMode = .scaleAspectFit //3
         //            myImageView.image = chosenImage //4
@@ -221,7 +260,7 @@ extension RegisterationDetailsVC : UIImagePickerControllerDelegate, UINavigation
             self.VehicleInsurancePickingBtn.setBackgroundImage(#imageLiteral(resourceName: "checked"), for: .normal)
             self.VehicleInsurancePickingBtn.setTitle("", for: .normal)
         }
-         dismiss(animated:true, completion: nil) //5
+        dismiss(animated:true, completion: nil) //5
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)

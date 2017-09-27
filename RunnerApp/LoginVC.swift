@@ -47,11 +47,12 @@ class LoginVC: UIViewController , UITextFieldDelegate{
     }
     @IBAction func creatAccountBtnAct(_ sender: UIButton) {
         
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let initVC = storyBoard.instantiateViewController(withIdentifier: "RegisterationDetailsVC") as! RegisterationDetailsVC
-        self.present(initVC, animated: true, completion: nil)
+let vc = RegisterVC()
+        self.present(vc, animated: true, completion: nil)
     }
     @IBAction func forgotPasswordBtnAct(_ sender: UIButton) {
+        let vc = ForgotPasswordVC()
+        self.present(vc, animated: true, completion: nil)
     }
 
     

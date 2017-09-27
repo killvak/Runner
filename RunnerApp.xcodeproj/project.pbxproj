@@ -139,7 +139,6 @@
 		84CA96851F77A922004AA3D8 = {
 			isa = PBXGroup;
 			children = (
-				84E36ABC1F7A7CF30010FEF7 /* NewOrderVC.swift */,
 				84CA96901F77A922004AA3D8 /* RunnerApp */,
 				84CA968F1F77A922004AA3D8 /* Products */,
 				556F613323BF387C943EC026 /* Pods */,
@@ -168,6 +167,7 @@
 				849F978E1F7B956E009997E1 /* HelpeMenuVC.xib */,
 				849D583D1F795C1B00D746D1 /* ProfileVC.swift */,
 				849D583B1F793FA300D746D1 /* HomePageVC.swift */,
+				84E36ABC1F7A7CF30010FEF7 /* NewOrderVC.swift */,
 				84D4C6F71F77E89000D49B8D /* RegisterTimeSlotCell.swift */,
 				84CA96B31F77A9A2004AA3D8 /* Xib */,
 				84CA96981F77A922004AA3D8 /* Assets.xcassets */,
@@ -349,6 +349,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MICountryPicker/MICountryPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStarRatingView/SwiftyStarRatingView.framework",
 			);
@@ -357,6 +358,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MICountryPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStarRatingView.framework",
 			);
@@ -532,6 +534,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CreativeApps.RunnerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -547,6 +550,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CreativeApps.RunnerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

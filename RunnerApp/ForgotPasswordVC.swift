@@ -18,13 +18,25 @@ class ForgotPasswordVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+ 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 
     @IBAction func sendBtnAct(_ sender: UIButton) {
+    }
+    
+    
+    @IBAction func backBtnAct(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation
