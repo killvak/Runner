@@ -9,16 +9,18 @@
 /* Begin PBXBuildFile section */
 		849D583C1F793FA300D746D1 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D583B1F793FA300D746D1 /* HomePageVC.swift */; };
 		849D583E1F795C1B00D746D1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D583D1F795C1B00D746D1 /* ProfileVC.swift */; };
+		849F97871F7B904E009997E1 /* L102Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F97831F7B904E009997E1 /* L102Language.swift */; };
+		849F97881F7B904E009997E1 /* MirroringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F97841F7B904E009997E1 /* MirroringLabel.swift */; };
+		849F97891F7B904E009997E1 /* MirroringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F97851F7B904E009997E1 /* MirroringViewController.swift */; };
+		849F978A1F7B904E009997E1 /* L012Localizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F97861F7B904E009997E1 /* L012Localizer.swift */; };
+		849F978F1F7B956E009997E1 /* HelpeMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F978D1F7B956E009997E1 /* HelpeMenuVC.swift */; };
+		849F97901F7B956E009997E1 /* HelpeMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849F978E1F7B956E009997E1 /* HelpeMenuVC.xib */; };
 		84B356081F78F58000BE70A0 /* RegisterListOfDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B356071F78F58000BE70A0 /* RegisterListOfDataCell.swift */; };
 		84CA96921F77A922004AA3D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA96911F77A922004AA3D8 /* AppDelegate.swift */; };
 		84CA96941F77A922004AA3D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA96931F77A922004AA3D8 /* ViewController.swift */; };
 		84CA96971F77A922004AA3D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96951F77A922004AA3D8 /* Main.storyboard */; };
 		84CA96991F77A922004AA3D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96981F77A922004AA3D8 /* Assets.xcassets */; };
 		84CA969C1F77A922004AA3D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CA969A1F77A922004AA3D8 /* LaunchScreen.storyboard */; };
-		84CA96AD1F77A998004AA3D8 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96A51F77A998004AA3D8 /* SettingsViewController.xib */; };
-		84CA96AE1F77A998004AA3D8 /* OrderListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96A61F77A998004AA3D8 /* OrderListViewController.xib */; };
-		84CA96AF1F77A998004AA3D8 /* OrderListItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96A71F77A998004AA3D8 /* OrderListItem.xib */; };
-		84CA96B01F77A998004AA3D8 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96A81F77A998004AA3D8 /* UserProfileViewController.xib */; };
 		84CA96B11F77A998004AA3D8 /* RegisterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96A91F77A998004AA3D8 /* RegisterVC.xib */; };
 		84CA96B21F77A998004AA3D8 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CA96AA1F77A998004AA3D8 /* LoginVC.xib */; };
 		84CA96B51F77AA10004AA3D8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA96B41F77AA10004AA3D8 /* LoginVC.swift */; };
@@ -51,6 +53,12 @@
 		71B2943EC3B75E4025B7FE18 /* Pods_RunnerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		849D583B1F793FA300D746D1 /* HomePageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
 		849D583D1F795C1B00D746D1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		849F97831F7B904E009997E1 /* L102Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L102Language.swift; sourceTree = "<group>"; };
+		849F97841F7B904E009997E1 /* MirroringLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirroringLabel.swift; sourceTree = "<group>"; };
+		849F97851F7B904E009997E1 /* MirroringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirroringViewController.swift; sourceTree = "<group>"; };
+		849F97861F7B904E009997E1 /* L012Localizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L012Localizer.swift; sourceTree = "<group>"; };
+		849F978D1F7B956E009997E1 /* HelpeMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpeMenuVC.swift; sourceTree = "<group>"; };
+		849F978E1F7B956E009997E1 /* HelpeMenuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpeMenuVC.xib; sourceTree = "<group>"; };
 		84B356071F78F58000BE70A0 /* RegisterListOfDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterListOfDataCell.swift; sourceTree = "<group>"; };
 		84CA968E1F77A922004AA3D8 /* RunnerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunnerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CA96911F77A922004AA3D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,10 +67,6 @@
 		84CA96981F77A922004AA3D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84CA969B1F77A922004AA3D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84CA969D1F77A922004AA3D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84CA96A51F77A998004AA3D8 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		84CA96A61F77A998004AA3D8 /* OrderListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderListViewController.xib; sourceTree = "<group>"; };
-		84CA96A71F77A998004AA3D8 /* OrderListItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderListItem.xib; sourceTree = "<group>"; };
-		84CA96A81F77A998004AA3D8 /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 		84CA96A91F77A998004AA3D8 /* RegisterVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterVC.xib; sourceTree = "<group>"; };
 		84CA96AA1F77A998004AA3D8 /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		84CA96B41F77AA10004AA3D8 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -121,6 +125,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		849F978B1F7B9054009997E1 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				849F97861F7B904E009997E1 /* L012Localizer.swift */,
+				849F97831F7B904E009997E1 /* L102Language.swift */,
+				849F97841F7B904E009997E1 /* MirroringLabel.swift */,
+				849F97851F7B904E009997E1 /* MirroringViewController.swift */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		84CA96851F77A922004AA3D8 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +164,8 @@
 				84CA96951F77A922004AA3D8 /* Main.storyboard */,
 				84E36ABA1F7A57970010FEF7 /* OrdersCell.swift */,
 				84E36AB81F7A57500010FEF7 /* OrdersTVC.swift */,
+				849F978D1F7B956E009997E1 /* HelpeMenuVC.swift */,
+				849F978E1F7B956E009997E1 /* HelpeMenuVC.xib */,
 				849D583D1F795C1B00D746D1 /* ProfileVC.swift */,
 				849D583B1F793FA300D746D1 /* HomePageVC.swift */,
 				84D4C6F71F77E89000D49B8D /* RegisterTimeSlotCell.swift */,
@@ -163,10 +180,6 @@
 		84CA96B31F77A9A2004AA3D8 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
-				84CA96A51F77A998004AA3D8 /* SettingsViewController.xib */,
-				84CA96A61F77A998004AA3D8 /* OrderListViewController.xib */,
-				84CA96A71F77A998004AA3D8 /* OrderListItem.xib */,
-				84CA96A81F77A998004AA3D8 /* UserProfileViewController.xib */,
 				84D4C6EC1F77D5FA00D49B8D /* User */,
 			);
 			name = Xib;
@@ -175,6 +188,7 @@
 		84D4C6D41F77D49300D49B8D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				849F978B1F7B9054009997E1 /* Localization */,
 				84D4C6CE1F77B06E00D49B8D /* Helpers.swift */,
 				84D4C6EA1F77D51900D49B8D /* Constants.swift */,
 				84D4C6D51F77D50500D49B8D /* DesignableX */,
@@ -279,14 +293,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849F97901F7B956E009997E1 /* HelpeMenuVC.xib in Resources */,
 				84CA969C1F77A922004AA3D8 /* LaunchScreen.storyboard in Resources */,
 				84CA96B11F77A998004AA3D8 /* RegisterVC.xib in Resources */,
 				84CA96B21F77A998004AA3D8 /* LoginVC.xib in Resources */,
-				84CA96AF1F77A998004AA3D8 /* OrderListItem.xib in Resources */,
-				84CA96AD1F77A998004AA3D8 /* SettingsViewController.xib in Resources */,
 				84CA96991F77A922004AA3D8 /* Assets.xcassets in Resources */,
-				84CA96AE1F77A998004AA3D8 /* OrderListViewController.xib in Resources */,
-				84CA96B01F77A998004AA3D8 /* UserProfileViewController.xib in Resources */,
 				84D4C6F01F77D63C00D49B8D /* ForgotPasswordVC.xib in Resources */,
 				84CA96971F77A922004AA3D8 /* Main.storyboard in Resources */,
 			);
@@ -364,6 +375,7 @@
 				84E36ABB1F7A57970010FEF7 /* OrdersCell.swift in Sources */,
 				84D4C6E51F77D50500D49B8D /* UIViewAnchorPoint.swift in Sources */,
 				84D4C6EB1F77D51900D49B8D /* Constants.swift in Sources */,
+				849F978F1F7B956E009997E1 /* HelpeMenuVC.swift in Sources */,
 				84D4C6E21F77D50500D49B8D /* UILabelX.swift in Sources */,
 				84D4C6F31F77D93A00D49B8D /* RegisterationDetailsVC.swift in Sources */,
 				84D4C6E31F77D50500D49B8D /* UISliderX.swift in Sources */,
@@ -378,6 +390,7 @@
 				849D583E1F795C1B00D746D1 /* ProfileVC.swift in Sources */,
 				84D4C6E81F77D50500D49B8D /* UIViewXRadialGradient.swift in Sources */,
 				84D4C6E61F77D50500D49B8D /* UIViewControllerX.swift in Sources */,
+				849F978A1F7B904E009997E1 /* L012Localizer.swift in Sources */,
 				84D4C6E01F77D50500D49B8D /* UIButtonX.swift in Sources */,
 				84D4C6D31F77D48C00D49B8D /* MaterialView.swift in Sources */,
 				84D4C6EF1F77D63C00D49B8D /* ForgotPasswordVC.swift in Sources */,
@@ -386,6 +399,9 @@
 				84D4C6E41F77D50500D49B8D /* UITextFieldX.swift in Sources */,
 				84D4C6CF1F77B06E00D49B8D /* Helpers.swift in Sources */,
 				84D4C6D11F77B18600D49B8D /* RegisterVC.swift in Sources */,
+				849F97891F7B904E009997E1 /* MirroringViewController.swift in Sources */,
+				849F97881F7B904E009997E1 /* MirroringLabel.swift in Sources */,
+				849F97871F7B904E009997E1 /* L102Language.swift in Sources */,
 				84B356081F78F58000BE70A0 /* RegisterListOfDataCell.swift in Sources */,
 				84E36ABD1F7A7CF30010FEF7 /* NewOrderVC.swift in Sources */,
 			);

@@ -10,13 +10,13 @@ import UIKit
 import CoreLocation
 
 class NewOrderVC: UIViewController , CLLocationManagerDelegate {
-
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var orderTitle: UILabel!
     @IBOutlet weak var deliverCharges: UILabel!
     
     @IBOutlet weak var pickupAddressDetailsLbl: UILabel!
- 
+    
     @IBOutlet weak var confirmationSelectionView: UIView!
     @IBOutlet weak var deliveryAddressLbl: UILabel!
     
@@ -29,20 +29,20 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }
     }
     let locationManager = CLLocationManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
-//        if CLLocationManager.authorizationStatus() == .notDetermined {
-//            self.locationManager?.requestWhenInUseAuthorization()
-//        }
-//
-//        locationManager?.distanceFilter = kCLDistanceFilterNone
-//        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager?.startUpdatingLocation()
-         locationManager.requestWhenInUseAuthorization()
+        //        if CLLocationManager.authorizationStatus() == .notDetermined {
+        //            self.locationManager?.requestWhenInUseAuthorization()
+        //        }
+        //
+        //        locationManager?.distanceFilter = kCLDistanceFilterNone
+        //        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        //        locationManager?.startUpdatingLocation()
+        locationManager.requestWhenInUseAuthorization()
         
         
         if CLLocationManager.locationServicesEnabled(){
@@ -51,16 +51,16 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !orderIsActive {
-         orderIsNotActiveViewSetup()
+            orderIsNotActiveViewSetup()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
     }
     
     
@@ -69,25 +69,25 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         guard orderIsActive else {
             self.orderStatusViewHeight.constant = 128
             UIView.animate(withDuration: 0.3, animations: {
-          self.orderIsNotActiveViewSetup()
-             }, completion: nil)
+                self.orderIsNotActiveViewSetup()
+            }, completion: nil)
             
             return
         }
         self.orderStatusViewHeight.constant = 274.67
         self.view.layoutIfNeeded()
-       
+        
         
         var offset = scrollView.contentOffset
         offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height
         scrollView.setContentOffset(offset, animated: true)
         
         
-         UIView.animate(withDuration: 0.3, animations: {
-             self.confirmationSelectionView.alpha = 0
+        UIView.animate(withDuration: 0.3, animations: {
+            self.confirmationSelectionView.alpha = 0
             self.confirmationSelectionView.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
-
-         },completion:nil)
+            
+        },completion:nil)
         UIView.animate(withDuration: 0.3, delay: 0.2, options: [.curveEaseInOut], animations: {
             self.orderStatusView.alpha = 1
             self.confirmationSelectionView.alpha = 0
@@ -95,10 +95,10 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }, completion: nil)
     }
     func  orderIsNotActiveViewSetup(){
-     self.orderStatusView.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
-    self.confirmationSelectionView.transform = .identity
-    self.orderStatusView.alpha = 0
-    self.confirmationSelectionView.alpha = 1
+        self.orderStatusView.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
+        self.confirmationSelectionView.transform = .identity
+        self.orderStatusView.alpha = 0
+        self.confirmationSelectionView.alpha = 1
     }
     
     @IBAction func addressTrackerHandler(_ sender: UIButton) {
@@ -110,7 +110,7 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }else { // Delivery Address
             destLat = 30.977609
             destLong = 27.527618
-         }
+        }
         guard  let url = URL(string: "http://maps.apple.com/?saddr=\(self.lat),\(self.long)&daddr=\(destLat),\(destLong)&dirflg=d") else {
             return }
         
@@ -149,25 +149,52 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     }
     @IBAction func declineOrderHandler(_ sender: UIButtonX) {
         orderIsActive = false
+        let alert = UIAlertController(title: "Cancel Order", message: "Cancel Order?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Order Cancelled by Restaurent", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
+            print("you have pressed the ok button")
+        }))
+        alert.addAction(UIAlertAction(title: "Order Cancelled by Me", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
+            print("you have pressed the ok button")
+        }))
+        alert.addAction(UIAlertAction(title: "Order Cancelled by User", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
+            print("you have pressed the ok button")
+        }))
+        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.destructive, handler: nil))
+        
+        //        alert.view.tintColor = .green
+        self.present(alert, animated: true, completion: nil)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    @IBAction func tabBarButtonsHandler(_ sender: UIButton) {
+        
+        let vc = HelpeMenuVC(nibName: "HelpeMenuVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        switch sender.tag {
+        case 0: break
+        case 1: break
+        case 2: break
+        default: //3
+            break
+        }
     }
-    */
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
         
         locationManager.stopUpdatingLocation()
-//        if ((error) != nil)
-//        {
-            print("\(error)")
-//        }
+        //        if ((error) != nil)
+        //        {
+        print("\(error)")
+        //        }
     }
     var lat : Double = 0
     var long : Double = 0
@@ -181,7 +208,8 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         print(coord.latitude)
         print(coord.longitude)
         locationManager.stopUpdatingLocation()
-
+        
     }
-
+    
 }
+
