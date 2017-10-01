@@ -21,6 +21,9 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     @IBOutlet weak var licensePickingBtn: UIButton!
     @IBOutlet weak var VehicleInsurancePickingBtn: UIButton!
     
+    var registerParameters : [String:Any] = [:]
+
+    var the3FieldsDict : [String:String] = [:]
     let activityInd : UIActivityIndicatorView = {
         
         let ai = UIActivityIndicatorView()
@@ -30,26 +33,34 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
         ai.translatesAutoresizingMaskIntoConstraints = false
         return ai
     }()
-    var selectionDict : [Int: Bool] = [:]
-    var imagesDict : [Int : UIImage] = [:]
+    var selectionDict : [String: Int] = [:]
+    var imagesDict : [String : UIImage] = [:]
     let picker = UIImagePickerController()
     
     var currentBtntag : Int?
     var shifts = ["Morning","Afternoon","Evening","Late Night"]
-    
-    
-    override func viewDidLoad() {
+    var shiftsparmaeters = ["morning","afternoon","evening","late_night"]
+    let registerRequest = M_UserRequest()
+
+     override func viewDidLoad() {
         super.viewDidLoad()
         
         //yourButton.contentHorizontalAlignment = .left
         
         // Do any additional setup after loading the view.
         for i in 0...shifts.count - 1 {
-            selectionDict[i] = true
+            selectionDict[shiftsparmaeters[i]] = Int(true)
             print(i)
         }
         picker.delegate = self
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        guard self.isBeingDismissed else { return }
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,13 +92,13 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     }
     
     @IBAction func imageSelectionTrigger(sender : UIButton) {
-        photoFromLibrary()
-        
+//        photoFromLibrary()
+        shootPhoto()
         currentBtntag = sender.tag
     }
     func yesBtnSelected(_ sender : UIButton) {
         
-        selectionDict[sender.tag] = true
+        selectionDict[shiftsparmaeters[sender.tag]] = Int(true)
         handleCellBtnSelection(sender.tag, true)
         
         print("that's the selection List : \(selectionDict)")
@@ -95,7 +106,7 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     
     func noBtnSelected(_ sender : UIButton) {
         
-        selectionDict[sender.tag] = false
+        selectionDict[shiftsparmaeters[sender.tag]] = Int(false)
         handleCellBtnSelection(sender.tag, false)
         print("that's the selection List : \(selectionDict)")
     }
@@ -115,29 +126,56 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
             
         }
     }
-    
+
     @IBAction func registerBtnHandler(_ sender: UIButton) {
+
+//        m.multiPart1(imageDict: imagesDict) { (data) in
+//
+//
+//        }
+        guard the3FieldsDict.count == 3 else {
+            self.view.showSimpleAlert("Warning!!", "All Details are required", .warning)
+            return
+        }
+
+        guard imagesDict.count == 3 else {
+            self.view.showSimpleAlert("Warning!!", "Please upload the reqired Photos", .warning)
+            return
+        }
         
+//        let allParameters : [String : Any] = [registerParameters + the3FieldsDict + imagesDict]
+
+        registerParameters.merge(with: the3FieldsDict)
+//        registerParameters.merge(with: imagesDict)
+         let finalParameters =  registerParameters.merged(with: selectionDict)
+        print("finalParameters : \(finalParameters)" )
+        registerRequest.postRegisterationRequest(parameters: finalParameters, imageDict: imagesDict) { [weak self ] (data) in
+            
+            
+            guard data.1 , let dataa = data.0 else {
+                self?.view.showSimpleAlert("Error", data.2, .error)
+                return
+            }
+          
+    
+        
+            DispatchQueue.main.async {
+                self?.view.isUserInteractionEnabled = false
+            }
         let alert = CDAlertView(title: "Done", message: "Welcome in Breeze", type: .success)
         alert.hideAnimations = { (center, transform, alpha) in
             transform = CGAffineTransform(scaleX: 3, y: 3)
             alpha = 0
             DispatchQueue.main.async {
-                self.view.isUserInteractionEnabled = false
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.679) {
-                    
+                     ad.saveUserLogginData(email: dataa.email, photoUrl: nil, uid: dataa.id, name: dataa.name)
                     ad.reloadWithAnimation()
-                    
-                }
-            }
+              }
         }
-        alert.hideAnimationDuration = 0.88
+        alert.hideAnimationDuration = 0.45
         alert.show()
-        
-        
-        //        ad.reload()
-    }
+//
+        }
+     }
     
     
     //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -187,8 +225,7 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
 extension RegisterationDetailsVC : RegisterDetailsProtocoal {
     
     func sendCurrentDataSelection(_ data: [String : String]) {
-        print("Thats the current Data \(data)")
-        
+         the3FieldsDict = data
         
     }
     
@@ -203,6 +240,7 @@ extension RegisterationDetailsVC : RegisterDetailsProtocoal {
 extension RegisterationDetailsVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate    {
     //https://makeapppie.com/2016/06/28/how-to-use-uiimagepickercontroller-for-a-camera-and-photo-library-in-swift-3-0/
     //        @IBOutlet weak var myImageView: UIImageView!
+    
     
     func photoFromLibrary() {
         picker.allowsEditing = false
@@ -241,22 +279,37 @@ extension RegisterationDetailsVC : UIImagePickerControllerDelegate, UINavigation
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         guard let tag =  currentBtntag else { return }
-        var  chosenImage = UIImage()
-        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+//        var  chosenImage = UIImage()
+      let  chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage //2
+        let assetPath = info[UIImagePickerControllerReferenceURL] as? NSURL
+       // guard let _ =  assetPath?.absoluteString?.hasSuffix("JPG") else {
+         //   self.view.showSimpleAlert("Erro", "Image has to be in JPG Format", .warning)
+        //    return
+     //   }
+        //Test
+        
         //            myImageView.contentMode = .scaleAspectFit //3
         //            myImageView.image = chosenImage //4
-        
-        imagesDict[tag] = chosenImage
-        switch tag {
-        case 0 :
+        let myThumb  = pickedImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
+
+//        guard  let imageData = chosenImage.jpeg(.lowest) else {
+//            view.showSimpleAlert("Invalid Image Format", "", .warning)
+//            return
+//        }
+//        print(imageData.count)
+         switch tag {
+        case 0 ://ProfileImage
+            imagesDict["image"] = myThumb
             self.profilePickingBtn.setBackgroundImage(#imageLiteral(resourceName: "checked"), for: .normal)
             self.profilePickingBtn.setTitle("", for: .normal)
         case 1 :
+            imagesDict["licence"] = myThumb
             self.licensePickingBtn.setBackgroundImage(#imageLiteral(resourceName: "checked"), for: .normal)
             self.licensePickingBtn.setTitle("", for: .normal)
         default :
+            imagesDict["vehicle"] = myThumb
             self.VehicleInsurancePickingBtn.setBackgroundImage(#imageLiteral(resourceName: "checked"), for: .normal)
             self.VehicleInsurancePickingBtn.setTitle("", for: .normal)
         }

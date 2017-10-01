@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         L102Localizer.DoTheMagic()
 
-        if !isUserLoggedIn() {
+        if  isUserLoggedIn() {
 //
 //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //            
@@ -28,13 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            self.window?.makeKeyAndVisible()
 
         }else {
+             let nav1 = UINavigationController()
+            nav1.navigationBar.tintColor = .black
+            let initialViewController = LoginVC(nibName: "LoginVC", bundle: nil)
+            nav1.viewControllers = [initialViewController]
+
+            let frame = UIScreen.main.bounds
+            window = UIWindow(frame: frame)
             
-//            let initialViewController = LoginVC(nibName: "LoginVC", bundle: nil)
-//            let frame = UIScreen.main.bounds
-//            window = UIWindow(frame: frame)
-//            
-//            window!.rootViewController = initialViewController
-//            window!.makeKeyAndVisible()
+            window!.rootViewController = nav1
+            window!.makeKeyAndVisible()
 
         }
         
@@ -126,8 +129,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var transition: UIViewAnimationOptions = .transitionFlipFromLeft
         
         let rootviewcontroller: UIWindow = ((UIApplication.shared.delegate?.window)!)!
+        
+        if isUserLoggedIn() {
         let storyb = UIStoryboard(name: "Main", bundle: Bundle.main)
         rootviewcontroller.rootViewController = storyb.instantiateViewController(withIdentifier: "rootNav")
+        }else {
+            let nav1 = UINavigationController()
+            nav1.navigationBar.tintColor = .black
+            let initialViewController = LoginVC(nibName: "LoginVC", bundle: nil)
+            nav1.viewControllers = [initialViewController]
+            rootviewcontroller.rootViewController = nav1
+
+        }
+       
+        
+ 
+ 
         let mainwindow = (UIApplication.shared.delegate?.window!)!
         mainwindow.backgroundColor = UIColor(hue: 1, saturation: 1, brightness: 1, alpha: 1)
         UIView.transition(with: mainwindow, duration: 0.55001, options: transition, animations: { () -> Void in

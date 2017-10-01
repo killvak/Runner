@@ -26,11 +26,7 @@ class RegisterDataSelectionVC: UIViewController  {
 
     var dataDict : [String:String] = [:]
     var SelectedBtnTag : Int = 0
-    var name : String? {
-        didSet {
-            print("Thats the name \(name)")
-        }
-    }
+ 
     
     weak var delegate : RegisterDetailsProtocoal?
   fileprivate   var data : dataListItems?
@@ -42,7 +38,7 @@ class RegisterDataSelectionVC: UIViewController  {
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
-    }
+     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,7 +101,9 @@ extension RegisterDataSelectionVC :  UITableViewDelegate,UITableViewDataSource {
         return cell 
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 49
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -117,15 +115,15 @@ extension RegisterDataSelectionVC :  UITableViewDelegate,UITableViewDataSource {
         print("that's it : \(dataa.listOfNames[indexPath.row])" )
         switch tag {
         case 0:
-            dataDict["0"] = dataa.listOfNames[indexPath.row]
+            dataDict["transportation"] = dataa.listOfNames[indexPath.row]
             self.modeOfTransportationBtn.setTitle(dataa.listOfNames[indexPath.row], for: .normal)
             self.modeOfTransportationBtn.setTitleColor(.darkGray, for: .normal)
         case 1 :
-            dataDict["1"] = dataa.listOfNames[indexPath.row]
+            dataDict["start_time"] = dataa.listOfNames[indexPath.row]
              self.startingTimeBtn.setTitle(dataa.listOfNames[indexPath.row], for: .normal)
             self.startingTimeBtn.setTitleColor(.darkGray, for: .normal)
         default:
-            dataDict["2"] = dataa.listOfNames[indexPath.row]
+            dataDict["work_hours"] = dataa.listOfNames[indexPath.row]
              self.worksHoursBtn.setTitle(dataa.listOfNames[indexPath.row], for: .normal)
             self.worksHoursBtn.setTitleColor(.darkGray, for: .normal)
         }

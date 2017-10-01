@@ -28,9 +28,10 @@ class Constants  {
     static let screenSize: CGRect = UIScreen.main.bounds
     
     class API {
-        //       private static let main_url = "http://appstest.xyz/api/"
-        private static let main_url = "http://mercatocoffee.com/api/"
-        
+
+        private static let main_url = "http://192.168.1.140/breeze/api/v1/"
+        private static let runner_path  = "runner/"
+
         
         class URLS {
             //            let API_TOKEN = "?api_token=776645543"
@@ -38,7 +39,8 @@ class Constants  {
             //           private  let HEADER_ID  = "X-Authorization-token"
             //           private  let HEADER_Value = "12b20fa6cca0ee113dc92d16f6be3029"
             
-            let HEADER = ["X-Authorization-token" : "12b20fa6cca0ee113dc92d16f6be3029"]
+            let HEADER = ["Authorization" : "Basic YkBuLmNvbToxMjM0NTY="]
+            let SINGLE_HEADER = ["Content-Type":"application/json"]
             let IMAGE_URL = "http://mercatocoffee.com/"
 
             //ARTICLES
@@ -47,73 +49,38 @@ class Constants  {
             //            let GET_ARTICLES_DATA_BY_ID = API.main_url + "articles/"
             //////////////
             //User
-            let POST_REGISTER = API.main_url + "register"
-            let POST_LOGIN = API.main_url + "login"
+            let POST_Registeration = API.main_url + runner_path + "register"
+            let POST_Email_Existance = API.main_url + runner_path + "email"
+            let POST_REGISTER_DETAILS = API.main_url + "runner/update_details"
             
-            let GET_OUR_MENU = API.main_url + "our_menu"
-            let POST_RESET_PASSWORD = API.main_url + "password_reset"
-            let GET_SEND_PASSWORD = API.main_url + "password_send"
-            let GET_POINTS = API.main_url + "points"
-            let GET_PRODUCTS = API.main_url + "products"
-            let POST_PRODUCTS_CAT = API.main_url + "products_category"
-            let POST_PROFILE = API.main_url + "profile"
-            let GET_PROFILE = API.main_url + "user_info"
-            let GET_REVIEW = API.main_url + "reviews"
-            let POST_ADD_REVIEW = API.main_url + "add_review"
-            
-            let GET_WALLET = API.main_url + "wallet"
-            
-            let POST_REDEEM = API.main_url + "redeem"
-            
-            let GET_QRScanner = API.main_url + "qrscan"
+            let GET_RUNNER_PROFILE_BY_ID = API.main_url + "runner/"//ADD THE ID
+            let POST_GO_OFFLINE = API.main_url + "offline"
+            let POST_GO_ONLINE = API.main_url + "online"
+            let POST_RESET_PASSWORD = API.main_url + "/runner/resetPassword"
+            let POST_LOGIN = API.main_url + "user/login"
+            let GET_RUNNER_RATE_BY_ID = API.main_url + "rate/runner/"//ADD THE ID
+
         }
         
         class Parameters {
-            
-            let email = "email"
-            let password = "password"
-            let phone_number = "phone_number"
-            let birthday = "birthday"
-            let name = "name"
-            let photo = "photo"
-            let points = "points"
-            let api_status = "api_status"
+            //DiNames
+            let user = "user"
+            //Global
             let id = "id"
-            let api_message = "api_message"
-            let data = "data"
-            let serial_number = "serial_number"
-            //add_review
-            let drinks = "drinks"
-            let food = "food"
-            let services = "services"
-            let employees = "employees"
-            let cleanness = "cleanness"
-            let notes = "notes"
-            let user_id = "user_id"
-            let code = "code"
-            //@End
+            let status_code = "status_code"
+            let error = "error"
+            let status = "status"
+            //Register
+            let name = "name"
+            let first_name = "first_name"
+            let last_name = "last_name"
+            let email = "email"
+            let referal_code = "referal_code"
+            let refered_by = "refered_by"
+            let provider = "provider"
+            let message = "message"
             
-            //Wallet
-            let point_id = "point_id"
-             let value = "value"
-             let qr_path = "qr_path"
-             let expire_date = "expire_date"
-            let redeemed_cards = "redeemed_cards"
-            let user_data = "user_data"
-            //@End Waller
             
-            //Redeem 
-            let description = "description"
-            //@End Redeem
-            
-            //All reviews
-            let total = "total"
-           
-            //@End AllReviews
-            
-            //RedeemPoints
-            let qr_png = "qr_png"
-            //@End RedeemPoints
         }
         
     }

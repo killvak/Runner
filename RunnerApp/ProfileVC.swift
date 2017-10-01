@@ -104,7 +104,8 @@ class ProfileVC: UIViewController {
     }
     @IBAction func logoutHandler(_ sender: UIButton) {
         
-        
+        ad.saveUserLogginData(email: nil, photoUrl: nil, uid: nil, name: nil )
+        ad.reloadWithAnimation()
     }
     /*
     // MARK: - Navigation

@@ -131,10 +131,11 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }
     }
     @IBAction func callCustomer(_ sender: UIButtonX) {
-        if let phoneCallURL:URL = URL(string: "tel:\(0201221515324)") {
+        let tele : Double  = 0201221515324
+        if let phoneCallURL:URL = URL(string: "tel:\(tele)") {
             let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(phoneCallURL)) {
-                let alertController = UIAlertController(title: "Hey There", message: "Are you sure you want to call \n\(0201221515324)?", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Hey There", message: "Are you sure you want to call \n\(tele)?", preferredStyle: .alert)
                 let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
                     application.openURL(phoneCallURL)
                 })

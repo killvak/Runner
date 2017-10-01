@@ -17,8 +17,10 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var ratingView: SwiftyStarRatingView!
     @IBOutlet weak var numOfDeliveriesLbl: UILabel!
     
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
+
 
         tableView.delegate = self
         tableView.dataSource = self
