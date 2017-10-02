@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RunnerApp/AppDelegate.swift"
-            timestampString = "528643112.875501"
+            timestampString = "528652102.319592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "saveUserLogginData(email:photoUrl:uid:name:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RunnerApp/AppDelegate.swift"
-            timestampString = "528643112.875581"
+            timestampString = "528652102.319991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "isUserLoggedIn()"
             landmarkType = "7">
          </BreakpointContent>
@@ -80,6 +80,22 @@
             startingLineNumber = "247"
             endingLineNumber = "247"
             landmarkName = "getProfileDataByIdRequst(completed:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RunnerApp/AppDelegate.swift"
+            timestampString = "528652102.320299"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "onOSSubscriptionChanged(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

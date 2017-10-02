@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		849C07F61F8287720012FD7A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849C07F51F8287720012FD7A /* UserNotifications.framework */; };
+		849C07F81F8287720012FD7A /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849C07F71F8287720012FD7A /* UserNotificationsUI.framework */; };
+		849C07FB1F8287720012FD7A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C07FA1F8287720012FD7A /* NotificationViewController.swift */; };
+		849C07FE1F8287720012FD7A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849C07FC1F8287720012FD7A /* MainInterface.storyboard */; };
+		849C08021F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 849C07F41F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		849D583C1F793FA300D746D1 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D583B1F793FA300D746D1 /* HomePageVC.swift */; };
 		849D583E1F795C1B00D746D1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D583D1F795C1B00D746D1 /* ProfileVC.swift */; };
 		849F97871F7B904E009997E1 /* L102Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F97831F7B904E009997E1 /* L102Language.swift */; };
@@ -48,11 +53,44 @@
 		84E36AB91F7A57500010FEF7 /* OrdersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E36AB81F7A57500010FEF7 /* OrdersTVC.swift */; };
 		84E36ABB1F7A57970010FEF7 /* OrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E36ABA1F7A57970010FEF7 /* OrdersCell.swift */; };
 		84E36ABD1F7A7CF30010FEF7 /* NewOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E36ABC1F7A7CF30010FEF7 /* NewOrderVC.swift */; };
+		9BD6B9F7E134082EDC27CDD7 /* Pods_BreezeRunnerOneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8812F96A237F3344EE0F5958 /* Pods_BreezeRunnerOneSignalNotificationServiceExtension.framework */; };
 		C03F23275E4B0C1359C4671F /* Pods_RunnerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B2943EC3B75E4025B7FE18 /* Pods_RunnerApp.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		849C08001F8287720012FD7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84CA96861F77A922004AA3D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 849C07F31F8287720012FD7A;
+			remoteInfo = BreezeRunnerOneSignalNotificationServiceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		849C08061F8287720012FD7A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				849C08021F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		71B2943EC3B75E4025B7FE18 /* Pods_RunnerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		849C07F41F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BreezeRunnerOneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		849C07F51F8287720012FD7A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		849C07F71F8287720012FD7A /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		849C07FA1F8287720012FD7A /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		849C07FD1F8287720012FD7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		849C07FF1F8287720012FD7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849C08071F828AD30012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BreezeRunnerOneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		849C08081F828E0B0012FD7A /* RunnerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerApp.entitlements; sourceTree = "<group>"; };
 		849D583B1F793FA300D746D1 /* HomePageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
 		849D583D1F795C1B00D746D1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		849F97831F7B904E009997E1 /* L102Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L102Language.swift; sourceTree = "<group>"; };
@@ -96,11 +134,24 @@
 		84E36AB81F7A57500010FEF7 /* OrdersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTVC.swift; sourceTree = "<group>"; };
 		84E36ABA1F7A57970010FEF7 /* OrdersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersCell.swift; sourceTree = "<group>"; };
 		84E36ABC1F7A7CF30010FEF7 /* NewOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderVC.swift; sourceTree = "<group>"; };
+		8812F96A237F3344EE0F5958 /* Pods_BreezeRunnerOneSignalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreezeRunnerOneSignalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C1AA76137FC4F6BF3129C8C /* Pods-BreezeRunnerOneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreezeRunnerOneSignalNotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BreezeRunnerOneSignalNotificationServiceExtension/Pods-BreezeRunnerOneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		C7FB78612D8E0E4C39EBD4E6 /* Pods-RunnerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-RunnerApp/Pods-RunnerApp.release.xcconfig"; sourceTree = "<group>"; };
 		C81363A4D1FEDD168F35FC15 /* Pods-RunnerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RunnerApp/Pods-RunnerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DD2ECE16CE0D898F1707A315 /* Pods-BreezeRunnerOneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreezeRunnerOneSignalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-BreezeRunnerOneSignalNotificationServiceExtension/Pods-BreezeRunnerOneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		849C07F11F8287720012FD7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				849C07F81F8287720012FD7A /* UserNotificationsUI.framework in Frameworks */,
+				849C07F61F8287720012FD7A /* UserNotifications.framework in Frameworks */,
+				9BD6B9F7E134082EDC27CDD7 /* Pods_BreezeRunnerOneSignalNotificationServiceExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84CA968B1F77A922004AA3D8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -117,6 +168,8 @@
 			children = (
 				C81363A4D1FEDD168F35FC15 /* Pods-RunnerApp.debug.xcconfig */,
 				C7FB78612D8E0E4C39EBD4E6 /* Pods-RunnerApp.release.xcconfig */,
+				8C1AA76137FC4F6BF3129C8C /* Pods-BreezeRunnerOneSignalNotificationServiceExtension.debug.xcconfig */,
+				DD2ECE16CE0D898F1707A315 /* Pods-BreezeRunnerOneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -125,8 +178,22 @@
 			isa = PBXGroup;
 			children = (
 				71B2943EC3B75E4025B7FE18 /* Pods_RunnerApp.framework */,
+				849C07F51F8287720012FD7A /* UserNotifications.framework */,
+				849C07F71F8287720012FD7A /* UserNotificationsUI.framework */,
+				8812F96A237F3344EE0F5958 /* Pods_BreezeRunnerOneSignalNotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		849C07F91F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				849C08071F828AD30012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.entitlements */,
+				849C07FA1F8287720012FD7A /* NotificationViewController.swift */,
+				849C07FC1F8287720012FD7A /* MainInterface.storyboard */,
+				849C07FF1F8287720012FD7A /* Info.plist */,
+			);
+			path = BreezeRunnerOneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		849F978B1F7B9054009997E1 /* Localization */ = {
@@ -144,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				84CA96901F77A922004AA3D8 /* RunnerApp */,
+				849C07F91F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension */,
 				84CA968F1F77A922004AA3D8 /* Products */,
 				556F613323BF387C943EC026 /* Pods */,
 				6D37E6980CF00E79D0B9C771 /* Frameworks */,
@@ -154,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				84CA968E1F77A922004AA3D8 /* RunnerApp.app */,
+				849C07F41F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,6 +230,7 @@
 		84CA96901F77A922004AA3D8 /* RunnerApp */ = {
 			isa = PBXGroup;
 			children = (
+				849C08081F828E0B0012FD7A /* RunnerApp.entitlements */,
 				84CA96911F77A922004AA3D8 /* AppDelegate.swift */,
 				84CA96931F77A922004AA3D8 /* ViewController.swift */,
 				84D4C6D41F77D49300D49B8D /* Helpers */,
@@ -247,6 +317,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		849C07F31F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 849C08031F8287720012FD7A /* Build configuration list for PBXNativeTarget "BreezeRunnerOneSignalNotificationServiceExtension" */;
+			buildPhases = (
+				5032E33D33BF9B3B5E7BDDF6 /* [CP] Check Pods Manifest.lock */,
+				849C07F01F8287720012FD7A /* Sources */,
+				849C07F11F8287720012FD7A /* Frameworks */,
+				849C07F21F8287720012FD7A /* Resources */,
+				B09F32988D4D9EF1E8E2486E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BreezeRunnerOneSignalNotificationServiceExtension;
+			productName = BreezeRunnerOneSignalNotificationServiceExtension;
+			productReference = 849C07F41F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		84CA968D1F77A922004AA3D8 /* RunnerApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84CA96A01F77A922004AA3D8 /* Build configuration list for PBXNativeTarget "RunnerApp" */;
@@ -257,10 +346,12 @@
 				84CA968C1F77A922004AA3D8 /* Resources */,
 				E21623352BE7D056CAB6413F /* [CP] Embed Pods Frameworks */,
 				A5D44A62F56D9F7B68815CD7 /* [CP] Copy Pods Resources */,
+				849C08061F8287720012FD7A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				849C08011F8287720012FD7A /* PBXTargetDependency */,
 			);
 			name = RunnerApp;
 			productName = RunnerApp;
@@ -273,14 +364,32 @@
 		84CA96861F77A922004AA3D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = CreativeApps;
 				TargetAttributes = {
+					849C07F31F8287720012FD7A = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = TJCJHX5L8Z;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
+					};
 					84CA968D1F77A922004AA3D8 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = TJCJHX5L8Z;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -298,11 +407,20 @@
 			projectRoot = "";
 			targets = (
 				84CA968D1F77A922004AA3D8 /* RunnerApp */,
+				849C07F31F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		849C07F21F8287720012FD7A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				849C07FE1F8287720012FD7A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84CA968C1F77A922004AA3D8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +438,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5032E33D33BF9B3B5E7BDDF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BreezeRunnerOneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A5D44A62F56D9F7B68815CD7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -333,6 +469,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RunnerApp/Pods-RunnerApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B09F32988D4D9EF1E8E2486E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BreezeRunnerOneSignalNotificationServiceExtension/Pods-BreezeRunnerOneSignalNotificationServiceExtension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C15D00A9C5AD0C11E844981B /* [CP] Check Pods Manifest.lock */ = {
@@ -384,6 +535,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		849C07F01F8287720012FD7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				849C07FB1F8287720012FD7A /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84CA968A1F77A922004AA3D8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -427,7 +586,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		849C08011F8287720012FD7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 849C07F31F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension */;
+			targetProxy = 849C08001F8287720012FD7A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		849C07FC1F8287720012FD7A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				849C07FD1F8287720012FD7A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		84CA96951F77A922004AA3D8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -447,6 +622,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		849C08041F8287720012FD7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C1AA76137FC4F6BF3129C8C /* Pods-BreezeRunnerOneSignalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TJCJHX5L8Z;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = BreezeRunnerOneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.breeze.runnerApp.BreezeRunnerOneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		849C08051F8287720012FD7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD2ECE16CE0D898F1707A315 /* Pods-BreezeRunnerOneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TJCJHX5L8Z;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = BreezeRunnerOneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.breeze.runnerApp.BreezeRunnerOneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		84CA969E1F77A922004AA3D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -542,7 +775,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C81363A4D1FEDD168F35FC15 /* Pods-RunnerApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RunnerApp/RunnerApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = TJCJHX5L8Z;
 				INFOPLIST_FILE = RunnerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -558,7 +794,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C7FB78612D8E0E4C39EBD4E6 /* Pods-RunnerApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RunnerApp/RunnerApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = TJCJHX5L8Z;
 				INFOPLIST_FILE = RunnerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -573,6 +812,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		849C08031F8287720012FD7A /* Build configuration list for PBXNativeTarget "BreezeRunnerOneSignalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				849C08041F8287720012FD7A /* Debug */,
+				849C08051F8287720012FD7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		84CA96891F77A922004AA3D8 /* Build configuration list for PBXProject "RunnerApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

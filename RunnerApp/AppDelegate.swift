@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+import OneSignal
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver {
 
     var window: UIWindow?
 
@@ -41,7 +41,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
         
+//        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false]
+//
+//        // Replace 'YOUR_APP_ID' with your OneSignal App ID.
+//        OneSignal.initWithLaunchOptions(launchOptions,
+//                                        appId: "ec902011-ea98-4b6e-95f7-f040df6a2d49",
+//                                        handleNotificationAction: nil,
+//                                        settings: onesignalInitSettings)
+//
+//        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification;
+//
+//        // Recommend moving the below line to prompt for push after informing the user about
+//        //   how your app will use them.
+//        OneSignal.promptForPushNotifications(userResponse: { accepted in
+//            print("User accepted notifications: \(accepted)")
+//        })
+        
+        // Sync hashed email if you have a login system or collect it.
+        //   Will be used to reach the user at the most optimal time of day.
+        // OneSignal.syncHashedEmail(userEmail)
+        // Sync hashed email if you have a login system or collect it.
+        //   Will be used to reach the user at the most optimal time of day.
+        // OneSignal.syncHashedEmail(userEmail)
+        
+        OneSignal.initWithLaunchOptions(launchOptions, appId: "ec902011-ea98-4b6e-95f7-f040df6a2d49", handleNotificationReceived: { (notification) in
+//            print("Received Notification - \((notification?.payload.notificationID) )")
+        }, handleNotificationAction: { (result) in
+            let payload: OSNotificationPayload? = result?.notification.payload
+            
+            var fullMessage: String? = payload?.body
+            if payload?.additionalData != nil {
+                var additionalData: [AnyHashable: Any]? = payload?.additionalData
+                if additionalData!["actionSelected"] != nil {
+                    fullMessage = fullMessage! + "\nPressed ButtonId:\(additionalData!["actionSelected"])"
+                }
+            }
+            
+//            print(fullMessage)
+        }, settings: [kOSSettingsKeyAutoPrompt : true,
+                      kOSSettingsKeyInFocusDisplayOption: OSNotificationDisplayType.notification.rawValue])
+        
+       
+        OneSignal.add(self as? OSSubscriptionObserver)
+
         return true
+    }
+    
+    // After you add the observer on didFinishLaunching, this method will be called when the notification subscription property changes.
+    func onOSSubscriptionChanged(_ stateChanges: OSSubscriptionStateChanges!) {
+        if !stateChanges.from.subscribed && stateChanges.to.subscribed {
+            print("Subscribed for OneSignal push notifications!")
+        }
+        print("SubscriptionStateChange: \n\(stateChanges)")
+        
+        //The player id is inside stateChanges. But be careful, this value can be nil if the user has not granted you permission to send notifications.
+        if let playerId = stateChanges.to.userId {
+            print("Current playerId \(playerId)")
+            
+            UserDefaults.standard.setValue(playerId, forKey: "oneSignalToken")
+
+        }
+    }
+ 
+    func oneSignalSetup(_ launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false]
+        
+        // Replace 'YOUR_APP_ID' with your OneSignal App ID.
+        OneSignal.initWithLaunchOptions(launchOptions,
+                                        appId: "a060954f-ba6c-44aa-a0dc-2c19fff6c9fc",
+                                        handleNotificationAction: nil,
+                                        settings: onesignalInitSettings)
+        
+        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification;
+        
+        // Recommend moving the below line to prompt for push after informing the user about
+        //   how your app will use them.
+        OneSignal.promptForPushNotifications(userResponse: { accepted in
+            print("User accepted notifications: \(accepted)")
+        })
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -92,7 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserDefaults.standard.setValue(uid, forKey: "userId")
             }else {
                 UserDefaults.standard.setValue(nil, forKey: "userId")
-                UserDefaults.standard.setValue(nil, forKey: "FCMToken")
+                UserDefaults.standard.setValue(nil, forKey: "oneSignalToken")
             }
         }
         if name != "default" {
