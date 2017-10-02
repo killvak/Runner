@@ -33,24 +33,18 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
          profileImage.addGestureRecognizer(tapGestureRecognizer)
         
-        
-        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        backButton.setBackgroundImage(#imageLiteral(resourceName: "favourite_icon_menu"), for: .normal)
-        backButton.addTarget(self, action: #selector(triggerMenu), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        
+     
         
      }
     
-    func triggerMenu() {
-     
+    @IBAction func menuBtnHundler(_ sender: UIBarButtonItem) {
         let x = HelpeMenuVC()
         x.modalTransitionStyle = .coverVertical
-         //        view.navigationController?.present(x, animated: true, completion: nil)
-//        self.view.present(x, animated: true, completion: nil)
+        //        view.navigationController?.present(x, animated: true, completion: nil)
+        //        self.view.present(x, animated: true, completion: nil)
         self.present(x, animated: true, completion: nil)
-        
     }
+ 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.profileImage.layer.cornerRadius =  profileImage.bounds.size.width   / 2
@@ -74,9 +68,7 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
    
     @IBAction func viewDetails(_ sender: UIButton) {
         
-        let vc = LoginVC()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+      }
     
 
     

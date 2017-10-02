@@ -10,13 +10,7 @@ import Foundation
 import UIKit
 
 
-var USER_ID :Int   {
-    guard  let userID = UserDefaults.standard.value(forKey: "userId") as? Int else {
-        //        print("error fetching userId from NSUserD.userId")
-        return 0
-    }
-    return userID
-}
+
 
 
 class Constants  {
@@ -63,6 +57,7 @@ class Constants  {
         }
         
         class Parameters {
+            let requestHasFailed = "Request has failed,Please check your network connection"
             //DiNames
             let user = "user"
             //Global
@@ -70,6 +65,7 @@ class Constants  {
             let status_code = "status_code"
             let error = "error"
             let status = "status"
+            let data = "data"
             //Register
             let name = "name"
             let first_name = "first_name"
@@ -80,7 +76,17 @@ class Constants  {
             let provider = "provider"
             let message = "message"
             
-            
+            //User
+            let phone = "phone"
+            let points = "points"
+            let transportation = "transportation"
+            let work_hours = "work_hours"
+            let is_admin = "is_admin"
+            let morning = "morning"
+            let afternoon = "afternoon"
+            let evening = "evening"
+            let late_night = "late_night"
+ 
         }
         
     }

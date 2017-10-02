@@ -54,7 +54,7 @@ class M_UserRequest  {
                 //                              }
                 //                              print("that is fail i n getting the Login data Mate : \(response.result.error?.localizedDescription)")
                 //
-                 completed( false,"")
+                 completed( false,self.parSource.requestHasFailed)
                 break
             }
         }
@@ -112,6 +112,8 @@ class M_UserRequest  {
             "email":email ,
             "password" : password,
          ]
+                  print(parameters)
+
         Alamofire.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
             //            print(response.result)
             switch(response.result) {
@@ -120,12 +122,12 @@ class M_UserRequest  {
                     
                     // got an error in getting the data, need to handle it
                     //                    print("error fetching data from url")
-                    print(response.result.error)
+                    print(response.result.error?.localizedDescription)
                     return
                     
                 }
                 let json = JSON( value) // SwiftyJSON
-                //                                print("that is  getMenuData getting the data Mate : %@", response.result.value)
+                print("that is  getMenuData getting the data Mate : %@", response.result.value)
                 let parm = Constants.API.Parameters()
                 
                 let data = User_DataModel(json[parm.user])
@@ -141,9 +143,9 @@ class M_UserRequest  {
                 //                               let json = String(data: data, encoding: String.Encoding.utf8)
                 //                                 print("Failure Response: \(json)")
                 //                              }
-                //                              print("that is fail i n getting the Login data Mate : \(response.result.error?.localizedDescription)")
+                                              print("that is fail i n getting the Login data Mate : \(response.result.error?.localizedDescription)")
                 //
-                completed(nil  , false,"")
+                completed(nil  , false,self.parSource.requestHasFailed)
                 break
             }
         }
@@ -191,11 +193,11 @@ class M_UserRequest  {
                     
                     let parm = Constants.API.Parameters()
                     
-                    let data = User_DataModel(json[parm.user])
+                    let data = User_DataModel(json[parm.message][parm.user])
                     let statusCode = json[parm.message][parm.user][parm.id].int
                     let status = statusCode == nil ? false : true
                     let sms = json[parm.message]["message"].string ?? json[parm.error]["message"].stringValue
-                    print("that's \(data.email)that's status \(statusCode) status \(status) sms: \(sms)////")
+                    print("that's timeline : \(data.timeSlots) email : \(data.email) /n id : \(data.id)that's status \(statusCode) status \(status) sms: \(sms)////")
 
                     completed( data, status ,sms)
                 }
@@ -203,6 +205,7 @@ class M_UserRequest  {
             case .failure(let encodingError):
                 //self.delegate?.showFailAlert()
                 print(encodingError)
+                completed(nil,false,self.parSource.requestHasFailed)
             }
             
         }
@@ -211,60 +214,107 @@ class M_UserRequest  {
     
     
     
-    func multiPart1(    imageDict : [String:UIImage],completed : @escaping (User_DataModel?,Bool,String)->()) {
-        let  parameters  : [String:Any] = [
-            "id": "39",
-            "transportation" : "car",
-            "start_time": "today",
-            "work_hours": "more than 4 hours",
-            "morning": "0",
-            "afternoon": "1",
-            "evening": "1",
-            "late_night": "0",
-            
-            ]
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            for (key,value) in imageDict{
-                if let imageData = UIImageJPEGRepresentation(value, 1) {
-//                    multipartFormData.append(imageData, withName: key, fileName: "file.jpeg", mimeType: "image/jpeg")
-                    multipartFormData.append(imageData, withName: key, fileName: "swift_file.jpg", mimeType: "image/jpg")
-                 }
-            }
-            for (key, value) in parameters {
-//                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key as String)
-                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-            }
-        }, to:source.POST_REGISTER_DETAILS, method: .post, headers: source.HEADER)
-        { (result) in
-            switch result {
-            case .success(let upload, _, _):
-                
-//                upload.uploadProgress(closure: { (Progress) in
-//                    print("Upload Progress: \(Progress.fractionCompleted)")
-//                })
-                
-                upload.responseJSON { response in
-                    //self.delegate?.showSuccessAlert()
-                    print("original URL request\n\(response.request)\n\n")  // original URL request
-                    print("response \n:\(response.response)\n\n") // URL response
-                    print("data :\n\(response.data)\n\n")      // server data
-                    print("result :\n\(response.result)\n\n")    // result of response serialization
-                    //                        self.showSuccesAlert()
-                    //self.removeImage("frame", fileExtension: "txt")
-                    guard  let value = response.result.value else {
-                         return
-                    }
-                    let json = JSON( value) // SwiftyJSON
-                    print("that;s json \(json)")
+    
+    func getProfileDataByIdRequst(  completed : @escaping (User_DataModel?,Bool,String)->()) {
+        
+        let url = source.GET_RUNNER_PROFILE_BY_ID + "\(ad.USER_ID)"
+        print("URL: is GET_RUNNER_PROFILE_BY_ID URL : \(url)")
+        
+        
+        Alamofire.request(url , method: .get, parameters: nil, encoding: JSONEncoding.default, headers: source.HEADER).responseJSON { (response:DataResponse<Any>) in
+            //            print(response.result)
+            switch(response.result) {
+            case .success(_):
+                guard response.result.error == nil, let value = response.result.value  else {
+                    
+                    // got an error in getting the data, need to handle it
+                    //                    print("error fetching data from url")
+                    print(response.result.error?.localizedDescription)
+                    completed(nil  , false,self.parSource.requestHasFailed)
+
+                    return
+                    
                 }
+                let json = JSON( value) // SwiftyJSON
+                                                print("that is  getMenuData getting the data Mate : %@", response.result.value)
+                let parm = Constants.API.Parameters()
                 
-            case .failure(let encodingError):
-                //self.delegate?.showFailAlert()
-                print(encodingError)
+                let data = User_DataModel(json[parm.data])
+                let statusCode = json[parm.error][parm.status_code].intValue
+                let status = data.email != "" ? true : false
+//                print("that's \(data.email)that's status \(statusCode)")
+                let sms =   json[parm.error]["message"].string ?? "Done"
+                print("that's timeline : \(data.timeSlots) email : \(data.email) /n id : \(data.id)that's status \(statusCode) status \(status) sms: \(sms)////")
+
+                completed( data, status ,sms)
+                break
+                
+            case .failure(_) :
+                //                             if let data = response.data {
+                //                               let json = String(data: data, encoding: String.Encoding.utf8)
+                //                                 print("Failure Response: \(json)")
+                //                              }
+                                              print("that is fail i n getting the Login data Mate : \(response.result.error?.localizedDescription)")
+                //
+                completed(nil  , false,self.parSource.requestHasFailed)
+                break
             }
-            
         }
     }
+//    func multiPart1(    imageDict : [String:UIImage],completed : @escaping (User_DataModel?,Bool,String)->()) {
+//        let  parameters  : [String:Any] = [
+//            "id": "39",
+//            "transportation" : "car",
+//            "start_time": "today",
+//            "work_hours": "more than 4 hours",
+//            "morning": "0",
+//            "afternoon": "1",
+//            "evening": "1",
+//            "late_night": "0",
+//            
+//            ]
+//        Alamofire.upload(multipartFormData: { (multipartFormData) in
+//            for (key,value) in imageDict{
+//                if let imageData = UIImageJPEGRepresentation(value, 1) {
+////                    multipartFormData.append(imageData, withName: key, fileName: "file.jpeg", mimeType: "image/jpeg")
+//                    multipartFormData.append(imageData, withName: key, fileName: "swift_file.jpg", mimeType: "image/jpg")
+//                 }
+//            }
+//            for (key, value) in parameters {
+////                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key as String)
+//                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+//            }
+//        }, to:source.POST_REGISTER_DETAILS, method: .post, headers: source.HEADER)
+//        { (result) in
+//            switch result {
+//            case .success(let upload, _, _):
+//                
+////                upload.uploadProgress(closure: { (Progress) in
+////                    print("Upload Progress: \(Progress.fractionCompleted)")
+////                })
+//                
+//                upload.responseJSON { response in
+//                    //self.delegate?.showSuccessAlert()
+//                    print("original URL request\n\(response.request)\n\n")  // original URL request
+//                    print("response \n:\(response.response)\n\n") // URL response
+//                    print("data :\n\(response.data)\n\n")      // server data
+//                    print("result :\n\(response.result)\n\n")    // result of response serialization
+//                    //                        self.showSuccesAlert()
+//                    //self.removeImage("frame", fileExtension: "txt")
+//                    guard  let value = response.result.value else {
+//                         return
+//                    }
+//                    let json = JSON( value) // SwiftyJSON
+//                    print("that;s json \(json)")
+//                }
+//                
+//            case .failure(let encodingError):
+//                //self.delegate?.showFailAlert()
+//                print(encodingError)
+//            }
+//            
+//        }
+//    }
 //    func postRegisterationDetails( registerParameters : [String:Any], imageDict : [String:Data],completed : @escaping (User_DataModel?,Bool,String)->()) {
 //
 //        let url = source.POST_REGISTER
@@ -401,9 +451,31 @@ class User_DataModel {
     private var _name  : String?
     private var _email : String?
     private var _refered_by : Int?
+    private var _phone : String?
+    private var _points : Int?
+    private var _transportation : String?
+    private var _work_hours : String?
+    private var _morning : Int?
+    private var _afternoon : Int?
+    private var _evening : Int?
+    private var _late_night : Int?
+
+    
     //]
     
     //[
+    
+    var timeSlots : String {
+        var finalString = ""
+        let array = ["Morning":_morning,"Afternoon":_afternoon,"Evening":_evening,"Night":_late_night]
+        
+        for (key ,value) in array {
+            print(" key \(key) value in \(value)")
+            guard value == 1 else { continue }
+            finalString.append("| \(key) | ")
+        }
+        return finalString
+    }
     var name : String {
         guard let x = _name else { return "" }
         return x
@@ -422,12 +494,34 @@ class User_DataModel {
         guard let x = _refered_by else { return 0 }
         return x
     }
-    
+    var phone : String {
+        guard let x = _phone else { return "" }
+        return x
+    }
+    var points : Int {
+        guard let x = _points else { return 0 }
+        return x
+    }
+    var transportation : String {
+        guard let x = _transportation else { return "" }
+        return x
+    }
+//    var work_hours : String {
+//        guard let x = _work_hours else { return "" }
+//        return x
+//    }
     init(_ jsonData : JSON) {
         self._name = jsonData[source.name].stringValue
         self._email = jsonData[source.email].stringValue
         self._id = jsonData[source.id].intValue
         self._refered_by = jsonData[source.refered_by].intValue
+        self._email = jsonData[source.email].stringValue
+        self._points = jsonData[source.points].intValue
+        self._transportation = jsonData[source.transportation].stringValue
+        self._morning = jsonData[source.morning].intValue
+        self._afternoon = jsonData[source.afternoon].intValue
+        self._evening = jsonData[source.evening].intValue
+        self._late_night = jsonData[source.late_night].intValue
 
         
     }

@@ -44,7 +44,7 @@
                     <rect key="frame" x="45" y="144" width="285" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="17"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="* Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMs-bA-gWD">
                     <rect key="frame" x="44.5" y="194" width="285" height="30"/>

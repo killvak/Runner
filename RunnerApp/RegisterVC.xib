@@ -105,7 +105,7 @@
                                         <outlet property="delegate" destination="-1" id="O9h-zy-Yid"/>
                                     </connections>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="* Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q4S-M4-T4I">
+                                <textField opaque="NO" clipsSubviews="YES" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="* Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q4S-M4-T4I">
                                     <rect key="frame" x="91" y="246" width="244" height="30"/>
                                     <color key="textColor" red="0.59193593259999999" green="0.59583604339999996" blue="0.61236888170000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="17"/>
@@ -341,7 +341,7 @@
     </objects>
     <resources>
         <image name="002-uncheckedbox" width="64" height="64"/>
-        <image name="arrow_back" width="100" height="100"/>
+        <image name="arrow_back" width="75" height="75"/>
         <image name="green_btn" width="902" height="136"/>
         <image name="header" width="640" height="128"/>
     </resources>

@@ -20,6 +20,9 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var transportationLbl: UILabel!
     let picker = UIImagePickerController()
 
+    let profileRequest = M_UserRequest()
+    var userData : User_DataModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,7 +31,39 @@ class ProfileVC: UIViewController {
         profileImage.isUserInteractionEnabled = true
         profileImage.addGestureRecognizer(tapGestureRecognizer)
         picker.delegate = self
+        
+        profileRequest.getProfileDataByIdRequst { [weak self ](dataValue, state, sms) in
+            guard   state else {
+                self?.failedRequest()
+               return
+            }
+            guard let data = dataValue else {
+                  self?.failedRequest()
+                return
+            }
+            self?.setupData(data)
+        }
 
+    }
+    
+    
+    func setupData(_ data : User_DataModel) {
+        
+        emailLbl.text = data.email
+        phoneNumLbl.text = data.phone
+        transportationLbl.text = data.transportation
+        timeSlotLbl.text  = data.timeSlots
+        
+        
+    }
+    
+    
+    
+    func failedRequest() {
+        DispatchQueue.main.async {
+            self.view.showSimpleAlert("Error!!", "Couldn't find profile,Please check your network", .error)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     override func viewDidLayoutSubviews() {

@@ -92,8 +92,8 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     }
     
     @IBAction func imageSelectionTrigger(sender : UIButton) {
-//        photoFromLibrary()
-        shootPhoto()
+        photoFromLibrary()
+//        shootPhoto()
         currentBtntag = sender.tag
     }
     func yesBtnSelected(_ sender : UIButton) {
@@ -156,7 +156,10 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
                 self?.view.showSimpleAlert("Error", data.2, .error)
                 return
             }
-          
+            print("that's the id : \(dataa.id)")
+            ad.saveUserLogginData(email: dataa.email, photoUrl: nil, uid: dataa.id, name: dataa.name)
+            print("that's the USER_ID : \(ad.USER_ID)")
+
     
         
             DispatchQueue.main.async {
@@ -167,7 +170,6 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
             transform = CGAffineTransform(scaleX: 3, y: 3)
             alpha = 0
             DispatchQueue.main.async {
-                     ad.saveUserLogginData(email: dataa.email, photoUrl: nil, uid: dataa.id, name: dataa.name)
                     ad.reloadWithAnimation()
               }
         }

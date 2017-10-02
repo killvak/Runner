@@ -23,8 +23,8 @@ class HelpeMenuVC: UIViewController {
     
     @IBAction func menuBtnsHandler(_ sender: UIButton) {
         
-        
-        
+        ad.saveUserLogginData(email: nil, photoUrl: nil, uid: nil, name: nil)
+        ad.reloadWithAnimation()
     }
     
     

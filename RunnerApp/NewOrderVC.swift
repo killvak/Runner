@@ -22,12 +22,23 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     
     @IBOutlet weak var orderStatusView: UIView!
     @IBOutlet weak var orderStatusViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var callCustomerTopConstraint: NSLayoutConstraint!// 20 > 50
     
-    var orderIsActive = false {
+    @IBOutlet weak var orderStateLbl: UILabel!
+    @IBOutlet weak var orderStatusBar: UIView!
+    @IBOutlet weak var declineBtnOL: UIButtonX!
+    
+    var orderIsActive = 0 { // 0 > pending request  , 1 > order in process  and  2 > order is done
         didSet {
+            print("Order value is :\(orderIsActive)")
+            guard viewAppeared else { return }
+            print("viewAppeared/ Order value  is :\(orderIsActive)")
+
             orderActivationHandler()
         }
     }
+    
+    var viewAppeared = false
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -54,27 +65,70 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !orderIsActive {
+        if orderIsActive == 0  {
             orderIsNotActiveViewSetup()
         }
+        
+        orderActivationHandler()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.viewAppeared = true
+//        orderActivationHandler()
     }
     
     
     func orderActivationHandler() {
         
-        guard orderIsActive else {
+    
+        
+        
+        switch orderIsActive {
+        case 0 :
             self.orderStatusViewHeight.constant = 128
+            self.view.layoutIfNeeded()
             UIView.animate(withDuration: 0.3, animations: {
                 self.orderIsNotActiveViewSetup()
             }, completion: nil)
+        case 1 :
+            orderInProcessSetup()
+        default : //2
+            if  self.orderStatusViewHeight.constant == 128 {
+                
+                self.declineBtnOL.alpha = 0
+                self.orderStatusBar.alpha = 0
+                self.orderStateLbl.alpha = 1
+                self.callCustomerTopConstraint.constant  = 50
+                orderInProcessSetup()
+                
+            }else if self.orderStatusViewHeight.constant == 274.67 {
+                
+                self.view.isUserInteractionEnabled = false
+                UIView.animate(withDuration: 0.45, animations: {
+                    
+                    self.declineBtnOL.alpha = 0
+                    self.orderStatusBar.alpha = 0
+                    self.orderStateLbl.alpha = 1
+                    self.callCustomerTopConstraint.constant = 50
+                    self.orderStatusViewHeight.constant = 200
+                    self.view.layoutIfNeeded()
+                }){(true) in
+                    DispatchQueue.main.async {
+                        self.view.isUserInteractionEnabled = true
+                    }
+                    }
+                
+            }
             
-            return
+            
+            
+            
         }
-        self.orderStatusViewHeight.constant = 274.67
+    }
+    
+    func orderInProcessSetup() {
+        
+        self.orderStatusViewHeight?.constant = 274.67
         self.view.layoutIfNeeded()
         
         
@@ -125,9 +179,9 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     
     @IBAction func confirmationSelectionHandler(_ sender: UIButtonX) {
         if sender.tag == 0 { // accept
-            orderIsActive = true
+            orderIsActive = 1
         }else { // Decline
-            
+            orderIsActive = 2
         }
     }
     @IBAction func callCustomer(_ sender: UIButtonX) {
@@ -149,7 +203,14 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }
     }
     @IBAction func declineOrderHandler(_ sender: UIButtonX) {
-        orderIsActive = false
+        orderIsActive = 2
+        
+//        declineAlertHandler()
+       
+    }
+    
+    func declineAlertHandler() {
+        
         let alert = UIAlertController(title: "Cancel Order", message: "Cancel Order?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Order Cancelled by Restaurent", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
             print("you have pressed the ok button")
@@ -164,6 +225,7 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         
         //        alert.view.tintColor = .green
         self.present(alert, animated: true, completion: nil)
+        
     }
     /*
      // MARK: - Navigation
@@ -176,7 +238,7 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
      */
     @IBAction func tabBarButtonsHandler(_ sender: UIButton) {
         
-      
+        
         switch sender.tag {
         case 0:
             let vc = RegisterVC()

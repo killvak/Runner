@@ -45,7 +45,14 @@ class OrdersTVC: UITableViewController {
 
         return cell
     }
-     
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NewOrderVC") as! NewOrderVC
+        vc.orderIsActive = 0...2 ~=  indexPath.row ? indexPath.row : 1
+        self.navigationController?.pushViewController(vc, animated: true )
+    }
 
     /*
     // Override to support conditional editing of the table view.

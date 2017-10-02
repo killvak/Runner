@@ -67,7 +67,7 @@ extension String {
     var isBlankOrLessThan3chr: Bool {
         get {
             let trimmed = trimmingCharacters(in: CharacterSet.whitespaces)
-            guard trimmed.isEmpty , self.characters.count <= 3 else {
+            guard trimmed.isEmpty , self.characters.count <= 4 else {
                 
                 return false
             }

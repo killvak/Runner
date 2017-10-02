@@ -36,22 +36,25 @@ class LoginVC: UIViewController , UITextFieldDelegate{
     
     @IBAction func loginBtnAct(_ sender: UIButton) {
         
-        guard  let email = emailTxt.text , email.isEmail else {
-            print("invalid email")
-            self.view.showSimpleAlert("Warning", "Invalid Email address", .warning)
-            return
-        }
-        guard let password = passwordTxt.text , password.isValidPassword else {
-            self.view.showSimpleAlert("Warning", "Password has to contain more than 8 characters", .warning)
-            return
-        }
+//        guard  let email = emailTxt.text , email.isEmail else {
+//            print("invalid email")
+//            self.view.showSimpleAlert("Warning", "Invalid Email address", .warning)
+//            return
+//        }
+//        guard let password = passwordTxt.text , password.isValidPassword else {
+//            self.view.showSimpleAlert("Warning", "Password has to contain more than 8 characters", .warning)
+//            return
+//        }
+        let email = "2@1.com"
+        let password = "qqqqqqqq"
           sender.alpha = 0.5
         self.view.isUserInteractionEnabled = false
         loginRequest.postLoginRequest(email: email, password: password) { [weak self] (data, state, sms ) in
             
             guard   state  else {
                 DispatchQueue.main.async {
-                     sender.alpha = 1
+                    self?.view.showSimpleAlert("Error", sms, .error)
+                      sender.alpha = 1
                     self?.view.isUserInteractionEnabled = true
                 }
                 return

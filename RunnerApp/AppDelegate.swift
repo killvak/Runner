@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         L102Localizer.DoTheMagic()
-
+        print("thats user id : \(ad.USER_ID)...")
         if  isUserLoggedIn() {
 //
 //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -153,6 +153,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
+    }
+    
+    var USER_ID :Int   {
+        guard  let userID = UserDefaults.standard.value(forKey: "userId") as? Int else {
+            //        print("error fetching userId from NSUserD.userId")
+            return 0
+        }
+        return userID
     }
 }
 let ad = UIApplication.shared.delegate as! AppDelegate

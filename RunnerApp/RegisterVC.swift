@@ -33,9 +33,15 @@ class RegisterVC: UIViewController , MICountryPickerDelegate , UITextFieldDelega
         // Optionally, set this to display the country calling codes after the names
         picker.showCallingCodes = true
         // Do any additional setup after loading the view.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)  // Allows dismissal of keyboard on tap anywhere on screen besides the keyboard itself
+
     }
     
-    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status and drop into background
+        view.endEditing(true)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -119,6 +125,7 @@ class RegisterVC: UIViewController , MICountryPickerDelegate , UITextFieldDelega
             
             guard status else {
                 DispatchQueue.main.async {
+                    self?.view.showSimpleAlert("Error", sms, .error)
                     self?.view.isUserInteractionEnabled = true
                     self?.view.showSimpleAlert("Error", sms, .error)
                 }
