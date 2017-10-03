@@ -282,7 +282,7 @@ class M_UserRequest  {
             "player_id" : playerID
 
             ]
-        print(parameters)
+//        print(parameters)
         //        let configuration = URLSessionConfiguration.default
         //        configuration.timeoutIntervalForResource = TimeInterval(60)
         //        configuration.timeoutIntervalForRequest = TimeInterval(60)
@@ -296,17 +296,17 @@ class M_UserRequest  {
                     
                     // got an error in getting the data, need to handle it
                     //                    print("error fetching data from url")
-                    print(response.result.error?.localizedDescription)
+//                    print(response.result.error?.localizedDescription)
                     return
                     
                 }
                 let json = JSON( value) // SwiftyJSON
-                print("that is  getMenuData getting the data Mate : %@", response.result.value)
+//                print("that is  getMenuData getting the data Mate : %@", response.result.value)
                 let parm = Constants.API.Parameters()
                 
                  let status = json["updated"].int != nil ? true : false
                 let sms = json[parm.message].string ?? json[parm.error][parm.message].stringValue
-                print("that's \(status)that's status \(sms)")
+//                print("that's \(status)that's status \(sms)")
 
                 completed(  status ,sms)
                 break
@@ -586,6 +586,129 @@ class User_DataModel {
         self._evening = jsonData[source.evening].intValue
         self._late_night = jsonData[source.late_night].intValue
 
+        
+    }
+    
+    
+}
+
+/*
+ {
+ "message": "order created successfully",
+ "order": {
+ "user_id": 5,
+ "pickup_lat": "24.668010",
+ "pickup_lng": "46.664042",
+ "pickup_address": "4009-4067 King Khalid Rd, Umm Al Hamam Al Sharqi, Riyadh 12721, Arabia Saudyjska",
+ "dropoff_lat": "24.666362",
+ "dropoff_lng": "46.630375",
+ "dropoff_address": "8412, Al Hada, Riyadh 12912 3380, Arabia Saudyjska",
+ "order_details": "i want to deliver some food",
+ "phone": "010000373746",
+ "total_price": 15,
+ "distance": "6,1 km",
+ "expected_time": "11 min",
+ "updated_at": "2017-10-03 17:58:32",
+ "created_at": "2017-10-03 17:58:32",
+ "id": 110
+ }
+ }
+ 
+ */
+
+
+class OrderDataAndDetails {
+    private   let source = Constants.API.Parameters()
+    
+    //[
+    private var _id :Int?
+    
+    private var _pickup_lat  : String?
+    private var _pickup_lng  : String?
+    private var _pickup_address  : String?
+    private var _dropoff_lat  : String?
+    private var _dropoff_lng  : String?
+    private var _dropoff_address  : String?
+    private var _order_details  : String?
+    private var _phone : String?
+    private var _distance  : String?
+    private var _total_price  : Int?
+    private var _expected_time  : String?
+ 
+    //]
+    
+    //[
+    var orderID : Int {
+        guard let x = _id else { return 0 }
+        return x
+    }
+   
+    var pickup_lat : Double {
+        guard let x = _pickup_lat , let lat = Double(x) else { return 0 }
+          return lat
+    }
+    
+    var pickup_lng : Double {
+        guard let x = _pickup_lng , let lng = Double(x) else { return 0 }
+          return lng
+    }
+    var pickup_address : String {
+        guard let x = _pickup_address else { return "" }
+        return x
+    }
+    var dropoff_lat : Double {
+        guard let x = _dropoff_lat , let lat = Double(x) else { return 0 }
+        return lat
+    }
+    var dropoff_lng : Double {
+        guard let x = _dropoff_lng , let lng = Double(x) else { return 0 }
+        return lng
+    }
+    var dropoff_address : String {
+        guard let x = _dropoff_address else { return "" }
+        return x
+    }
+    var order_details : String {
+        guard let x = _order_details else { return "" }
+        return x
+    }
+    var phone : String {
+        guard let x = _phone else { return "" }
+        return x
+    }
+    var distance : String {
+        guard let x = _distance else { return "" }
+        return x
+    }
+    var total_price : Int {
+        guard let x = _total_price else { return -1 }
+        return x
+    }
+    var expected_time : String {
+        guard let x = _expected_time else { return "" }
+        return x
+    }
+   
+    
+   
+    //    var work_hours : String {
+    //        guard let x = _work_hours else { return "" }
+    //        return x
+    //    }
+    init(_ jsonData : JSON) {
+        self._id = jsonData[source.id].intValue
+        self._pickup_lat = jsonData[source.pickup_lat].stringValue
+        self._pickup_lng = jsonData[source.pickup_lng].stringValue
+        self._pickup_address = jsonData[source.pickup_address].stringValue
+        self._dropoff_lat = jsonData[source.dropoff_lat].stringValue
+        self._dropoff_lng = jsonData[source.dropoff_lng].stringValue
+        self._dropoff_address = jsonData[source.dropoff_address].stringValue
+        self._order_details = jsonData[source.order_details].stringValue
+        self._phone = jsonData[source.phone].stringValue
+        self._distance = jsonData[source.distance].stringValue
+        self._total_price = jsonData[source.total_price].intValue
+        self._expected_time = jsonData[source.expected_time].stringValue
+ 
         
     }
     

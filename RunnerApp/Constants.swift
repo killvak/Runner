@@ -22,10 +22,10 @@ class Constants  {
     static let screenSize: CGRect = UIScreen.main.bounds
     
     class API {
-
+        
         private static let main_url = "http://192.168.1.140/breeze/api/v1/"
         private static let runner_path  = "runner/"
-
+        
         
         class URLS {
             //            let API_TOKEN = "?api_token=776645543"
@@ -36,7 +36,7 @@ class Constants  {
             let HEADER = ["Authorization" : "Basic YkBuLmNvbToxMjM0NTY="]
             let SINGLE_HEADER = ["Content-Type":"application/json"]
             let IMAGE_URL = "http://mercatocoffee.com/"
-
+            
             //ARTICLES
             //            let POST_ARTICLES_DATA = API.main_url + "articles"
             //            let GET_ARTICLES_ALL = API.main_url + "articles"
@@ -53,7 +53,7 @@ class Constants  {
             let POST_RESET_PASSWORD = API.main_url + "/runner/resetPassword"
             let POST_LOGIN = API.main_url + "user/login"
             let GET_RUNNER_RATE_BY_ID = API.main_url + "rate/runner/"//ADD THE ID
-
+            
             let POST_ONESIGNAL_PLAYID = API.main_url + "user/player_id"
         }
         
@@ -87,7 +87,19 @@ class Constants  {
             let afternoon = "afternoon"
             let evening = "evening"
             let late_night = "late_night"
- 
+            
+            //Order Data
+            let user_id  = "user_id"
+            let pickup_lat = "pickup_lat"
+            let pickup_lng = "pickup_lng"
+            let pickup_address = "pickup_address"
+            let dropoff_lat = "dropoff_lat"
+            let dropoff_lng = "dropoff_lng"
+            let dropoff_address = "dropoff_address"
+            let order_details = "order_details"
+            let total_price = "total_price"
+            let distance = "distance"
+            let expected_time = "expected_time"
         }
         
     }

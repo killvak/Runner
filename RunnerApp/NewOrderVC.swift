@@ -11,6 +11,7 @@ import CoreLocation
 
 class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     
+    @IBOutlet weak var modelViewNavBarHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var orderTitle: UILabel!
     @IBOutlet weak var deliverCharges: UILabel!
@@ -28,6 +29,8 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var orderStatusBar: UIView!
     @IBOutlet weak var declineBtnOL: UIButtonX!
     
+    var orderDetails : OrderDataAndDetails?
+    
     var orderIsActive = 0 { // 0 > pending request  , 1 > order in process  and  2 > order is done
         didSet {
             print("Order value is :\(orderIsActive)")
@@ -37,7 +40,16 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
             orderActivationHandler()
         }
     }
+    // the dest used
+    var destLat : Double = 0
+    var destLong : Double = 0
+    // locations 
+    var dropOffLat : Double = 0
+    var dropOfflang : Double = 0
+    var pickupLat : Double = 0
+    var pickupLng : Double = 0
     
+    ////
     var viewAppeared = false
     let locationManager = CLLocationManager()
     
@@ -61,15 +73,22 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if self.isModal()  {
+            self.modelViewNavBarHeight.constant = 45
+        }
+        
         if orderIsActive == 0  {
             orderIsNotActiveViewSetup()
         }
         
         orderActivationHandler()
+        setData()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -77,6 +96,38 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
 //        orderActivationHandler()
     }
     
+    func setData() {
+        
+        guard let data = orderDetails else {
+           if  self.navigationController == nil {
+                self.dismiss(animated: true, completion: nil)
+           }else {
+            self.navigationController?.popViewController(animated: true)
+            }
+            return
+        }
+        
+        orderTitle?.text = data.order_details
+        deliverCharges?.text = "\(data.total_price)"
+        pickupAddressDetailsLbl?.text = data.pickup_address
+        deliveryAddressLbl?.text = data.dropoff_address
+        dropOffLat = data.dropoff_lat
+        dropOfflang = data.dropoff_lng
+        pickupLat = data.pickup_lat
+        pickupLng = data.pickup_lng
+    }
+    
+    @IBAction func dismissView(_ sender: UIButton) {
+//        if self.isModal()  {
+//
+//            print("is Model View")
+//
+            self.dismiss(animated: true, completion: nil)
+//        }else {
+//            print("is root VC")
+//            ad.reload()
+//        }
+    }
     
     func orderActivationHandler() {
         
@@ -156,14 +207,13 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     }
     
     @IBAction func addressTrackerHandler(_ sender: UIButton) {
-        var destLat : Double = 0
-        var destLong : Double = 0
+        
         if sender.tag == 0 { // Pickup Address
-            destLat = 27.839076
-            destLong = 30.955353
+            destLat = pickupLat
+            destLong = pickupLng
         }else { // Delivery Address
-            destLat = 30.977609
-            destLong = 27.527618
+            destLat = dropOffLat
+            destLong = dropOfflang
         }
         guard  let url = URL(string: "http://maps.apple.com/?saddr=\(self.lat),\(self.long)&daddr=\(destLat),\(destLong)&dirflg=d") else {
             return }
@@ -185,7 +235,7 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }
     }
     @IBAction func callCustomer(_ sender: UIButtonX) {
-        let tele : Double  = 0201221515324
+        let tele  = orderDetails?.phone
         if let phoneCallURL:URL = URL(string: "tel:\(tele)") {
             let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(phoneCallURL)) {
@@ -238,19 +288,19 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
      */
     @IBAction func tabBarButtonsHandler(_ sender: UIButton) {
         
-        
-        switch sender.tag {
-        case 0:
-            let vc = RegisterVC()
-            self.navigationController?.pushViewController(vc, animated: true)
-        case 1:
-            let vc = HelpeMenuVC(nibName: "HelpeMenuVC", bundle: nil)
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        case 2: break
-        default: //3
-            break
-        }
+     
+//        switch sender.tag {
+//        case 0:
+//            let vc = RegisterVC()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        case 1:
+//            let vc = HelpeMenuVC(nibName: "HelpeMenuVC", bundle: nil)
+//            self.navigationController?.pushViewController(vc, animated: true)
+//
+//        case 2: break
+//        default: //3
+//            break
+//        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
