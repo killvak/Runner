@@ -25,7 +25,7 @@ class M_UserRequest  {
         let parameters : Parameters = [
             "email":email ,
          ]
-        Alamofire.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
+        sessionManager.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
             //            print(response.result)
             switch(response.result) {
             case .success(_):
@@ -68,7 +68,7 @@ class M_UserRequest  {
         let parameters : Parameters = [
             "email":email ,
             ]
-        Alamofire.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
+        sessionManager.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
             //            print(response.result)
             switch(response.result) {
             case .success(_):
@@ -102,8 +102,13 @@ class M_UserRequest  {
             }
         }
     }
-    
-    
+ 
+  private  let sessionManager : SessionManager = {
+        let con = URLSessionConfiguration.default
+        con.timeoutIntervalForResource = TimeInterval(10)
+        con.timeoutIntervalForRequest = TimeInterval(10)
+        return  Alamofire.SessionManager(configuration: con)
+    }()
     func postLoginRequest( email : String , password : String  ,completed : @escaping (User_DataModel?,Bool,String)->()) {
         
         let url = source.POST_LOGIN
@@ -113,8 +118,12 @@ class M_UserRequest  {
             "password" : password,
          ]
                   print(parameters)
-
-        Alamofire.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
+//        let configuration = URLSessionConfiguration.default
+//        configuration.timeoutIntervalForResource = TimeInterval(60)
+//        configuration.timeoutIntervalForRequest = TimeInterval(60)
+//
+//        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        sessionManager.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
             //            print(response.result)
             switch(response.result) {
             case .success(_):
@@ -157,7 +166,7 @@ class M_UserRequest  {
     
     func postRegisterationRequest(  parameters : [String : Any] ,   imageDict : [String:UIImage],completed : @escaping (User_DataModel?,Bool,String)->()) {
   
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
+        sessionManager.upload(multipartFormData: { (multipartFormData) in
             for (key,value) in imageDict{
                 if let imageData = UIImageJPEGRepresentation(value, 1) {
                     //                    multipartFormData.append(imageData, withName: key, fileName: "file.jpeg", mimeType: "image/jpeg")
@@ -221,7 +230,7 @@ class M_UserRequest  {
         print("URL: is GET_RUNNER_PROFILE_BY_ID URL : \(url)")
         
         
-        Alamofire.request(url , method: .get, parameters: nil, encoding: JSONEncoding.default, headers: source.HEADER).responseJSON { (response:DataResponse<Any>) in
+        sessionManager.request(url , method: .get, parameters: nil, encoding: JSONEncoding.default, headers: source.HEADER).responseJSON { (response:DataResponse<Any>) in
             //            print(response.result)
             switch(response.result) {
             case .success(_):
@@ -261,6 +270,60 @@ class M_UserRequest  {
             }
         }
     }
+    
+    
+    func postOneSignalPlayerID( _ playerID : String, completed : @escaping ( Bool,String)->()) {
+        
+        let url = source.POST_ONESIGNAL_PLAYID
+        print("URL: is POST_ONESIGNAL_PLAYID URL : \(url)")
+        let parameters : Parameters = [
+            "user_id" : ad.USER_ID,
+            "role_id": "3",
+            "player_id" : playerID
+
+            ]
+        print(parameters)
+        //        let configuration = URLSessionConfiguration.default
+        //        configuration.timeoutIntervalForResource = TimeInterval(60)
+        //        configuration.timeoutIntervalForRequest = TimeInterval(60)
+        //
+        //        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        sessionManager.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: source.HEADER).responseJSON { (response:DataResponse<Any>) in
+            //            print(response.result)
+            switch(response.result) {
+            case .success(_):
+                guard response.result.error == nil, let value = response.result.value  else {
+                    
+                    // got an error in getting the data, need to handle it
+                    //                    print("error fetching data from url")
+                    print(response.result.error?.localizedDescription)
+                    return
+                    
+                }
+                let json = JSON( value) // SwiftyJSON
+                print("that is  getMenuData getting the data Mate : %@", response.result.value)
+                let parm = Constants.API.Parameters()
+                
+                 let status = json["updated"].int != nil ? true : false
+                let sms = json[parm.message].string ?? json[parm.error][parm.message].stringValue
+                print("that's \(status)that's status \(sms)")
+
+                completed(  status ,sms)
+                break
+                
+            case .failure(_) :
+                //                             if let data = response.data {
+                //                               let json = String(data: data, encoding: String.Encoding.utf8)
+                //                                 print("Failure Response: \(json)")
+                //                              }
+                print("that is fail i n getting the Login data Mate : \(response.result.error?.localizedDescription)")
+                //
+                completed(     false,self.parSource.requestHasFailed)
+                break
+            }
+        }
+    }
+    
 //    func multiPart1(    imageDict : [String:UIImage],completed : @escaping (User_DataModel?,Bool,String)->()) {
 //        let  parameters  : [String:Any] = [
 //            "id": "39",
@@ -470,7 +533,7 @@ class User_DataModel {
         let array = ["Morning":_morning,"Afternoon":_afternoon,"Evening":_evening,"Night":_late_night]
         
         for (key ,value) in array {
-            print(" key \(key) value in \(value)")
+//            print(" key \(key) value in \(value)")
             guard value == 1 else { continue }
             finalString.append("| \(key) | ")
         }

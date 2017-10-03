@@ -955,7 +955,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2JD-ND-MIX">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="84" width="320" height="484"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OiC-Ov-kbW">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="713"/>
@@ -1728,7 +1728,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow_back" width="75" height="75"/>
+        <image name="arrow_back" width="100" height="100"/>
         <image name="green_btn" width="902" height="136"/>
         <image name="header" width="640" height="128"/>
         <image name="location" width="32" height="32"/>

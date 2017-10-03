@@ -54,6 +54,7 @@ class Constants  {
             let POST_LOGIN = API.main_url + "user/login"
             let GET_RUNNER_RATE_BY_ID = API.main_url + "rate/runner/"//ADD THE ID
 
+            let POST_ONESIGNAL_PLAYID = API.main_url + "user/player_id"
         }
         
         class Parameters {

@@ -10,82 +10,73 @@ import UIKit
 import OneSignal
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver {
-
+    
     var window: UIWindow?
-
+    private let oneSignalRequest = M_UserRequest()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         L102Localizer.DoTheMagic()
-        print("thats user id : \(ad.USER_ID)...")
+        //        print("thats user id : \(ad.USER_ID)...")
         if  isUserLoggedIn() {
-//
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            
-//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginSignupVC")
-//            
-//            self.window?.rootViewController = initialViewController
-//            self.window?.makeKeyAndVisible()
-
+            
+            
+            
+            //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            //
+            //            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginSignupVC")
+            //
+            //            self.window?.rootViewController = initialViewController
+            //            self.window?.makeKeyAndVisible()
+            
+            /*
+             OneSignal.initWithLaunchOptions(launchOptions, appId: "ec902011-ea98-4b6e-95f7-f040df6a2d49", handleNotificationReceived: { (notification) in
+             //            print("Received Notification - \((notification?.payload.notificationID) )")
+             }, handleNotificationAction: { result in
+             
+             // This block gets called when the user reacts to a notification received
+             let payload: OSNotificationPayload = result!.notification.payload
+             var fullMessage = payload.body
+             
+             //Try to fetch the action selected
+             if let additionalData = payload.additionalData, let actionSelected = additionalData["actionSelected"] as? String  {
+             fullMessage =  fullMessage ?? "" + "\nPressed ButtonId:\(actionSelected)"
+             }
+             print("fullMessage = \(String(describing: fullMessage))")
+             }, settings: [kOSSettingsKeyAutoPrompt : true,
+             kOSSettingsKeyInFocusDisplayOption: OSNotificationDisplayType.notification.rawValue])
+             
+             
+             OneSignal.add(self as OSSubscriptionObserver)
+             */
+            oneSignalSetup(launchOptions)
+            
+            guard let oneSignalID =  UserDefaults.standard.value(forKey: "hasSentPlayerID") as? Bool , oneSignalID  else {
+                guard  let playerID = UserDefaults.standard.value(forKey: "oneSignalToken") as? String  else { return true }
+                sendPlayerID(playerID)
+                return true
+            }
         }else {
-             let nav1 = UINavigationController()
+            let nav1 = UINavigationController()
             nav1.navigationBar.tintColor = .black
             let initialViewController = LoginVC(nibName: "LoginVC", bundle: nil)
             nav1.viewControllers = [initialViewController]
-
+            
             let frame = UIScreen.main.bounds
             window = UIWindow(frame: frame)
             
             window!.rootViewController = nav1
             window!.makeKeyAndVisible()
-
         }
         
-//        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false]
-//
-//        // Replace 'YOUR_APP_ID' with your OneSignal App ID.
-//        OneSignal.initWithLaunchOptions(launchOptions,
-//                                        appId: "ec902011-ea98-4b6e-95f7-f040df6a2d49",
-//                                        handleNotificationAction: nil,
-//                                        settings: onesignalInitSettings)
-//
-//        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification;
-//
-//        // Recommend moving the below line to prompt for push after informing the user about
-//        //   how your app will use them.
-//        OneSignal.promptForPushNotifications(userResponse: { accepted in
-//            print("User accepted notifications: \(accepted)")
-//        })
-        
-        // Sync hashed email if you have a login system or collect it.
-        //   Will be used to reach the user at the most optimal time of day.
-        // OneSignal.syncHashedEmail(userEmail)
-        // Sync hashed email if you have a login system or collect it.
-        //   Will be used to reach the user at the most optimal time of day.
-        // OneSignal.syncHashedEmail(userEmail)
-        
-        OneSignal.initWithLaunchOptions(launchOptions, appId: "ec902011-ea98-4b6e-95f7-f040df6a2d49", handleNotificationReceived: { (notification) in
-//            print("Received Notification - \((notification?.payload.notificationID) )")
-        }, handleNotificationAction: { (result) in
-            let payload: OSNotificationPayload? = result?.notification.payload
-            
-            var fullMessage: String? = payload?.body
-            if payload?.additionalData != nil {
-                var additionalData: [AnyHashable: Any]? = payload?.additionalData
-                if additionalData!["actionSelected"] != nil {
-                    fullMessage = fullMessage! + "\nPressed ButtonId:\(additionalData!["actionSelected"])"
-                }
-            }
-            
-//            print(fullMessage)
-        }, settings: [kOSSettingsKeyAutoPrompt : true,
-                      kOSSettingsKeyInFocusDisplayOption: OSNotificationDisplayType.notification.rawValue])
-        
-       
-        OneSignal.add(self as? OSSubscriptionObserver)
-
         return true
     }
+    
+    // ONESIGNSL TEST
+    
+    
+    
+    //
     
     // After you add the observer on didFinishLaunching, this method will be called when the notification subscription property changes.
     func onOSSubscriptionChanged(_ stateChanges: OSSubscriptionStateChanges!) {
@@ -93,57 +84,145 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver {
             print("Subscribed for OneSignal push notifications!")
         }
         print("SubscriptionStateChange: \n\(stateChanges)")
-        
-        //The player id is inside stateChanges. But be careful, this value can be nil if the user has not granted you permission to send notifications.
+         //The player id is inside stateChanges. But be careful, this value can be nil if the user has not granted you permission to send notifications.
         if let playerId = stateChanges.to.userId {
             print("Current playerId \(playerId)")
-            
-            UserDefaults.standard.setValue(playerId, forKey: "oneSignalToken")
-
-        }
+            notificationSettings(playerId)
+//            self.sendPlayerID(playerId)
+         }
     }
- 
-    func oneSignalSetup(_ launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
-        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false]
+    
+    func sendPlayerID(_ playerId : String) {
         
-        // Replace 'YOUR_APP_ID' with your OneSignal App ID.
+        oneSignalRequest.postOneSignalPlayerID(playerId, completed: { (status, sms) in
+            
+            guard status else {
+                UserDefaults.standard.setValue(false, forKey: "hasSentPlayerID")
+                print("failed to send playerID : \(sms)")
+                return
+            }
+            UserDefaults.standard.setValue(true, forKey: "hasSentPlayerID")
+            
+            print("√√ sent playerID : \(sms)")
+            
+        })
+
+    }
+    
+    func notificationSettings(_ playerId : String) {
+        guard let userID = UserDefaults.standard.value(forKey: "userId") as? Int else {
+            UserDefaults.standard.setValue(nil, forKey: "oneSignalToken")
+            print("⚠️No userID Found  ❌ ");
+            return }
+        
+        
+        if     UserDefaults.standard.value(forKey: "oneSignalToken") as? String != playerId {
+            print("✅Updating Token ✳️found  userId: \(String(describing: UserDefaults.standard.value(forKey: "userId") as? String))\n ,FCMToken \(String(describing: UserDefaults.standard.value(forKey: "oneSignalToken") as? String))\n, so updating it with refreshedToken \(playerId)\n and userID : \(userID)")
+            
+            //            let userFCM = MUserData()
+            //            userFCM.userFCMToken(userID: userID, token: refreshedToken, completed: { (state,sms) in
+            //
+            //                if state {
+            UserDefaults.standard.setValue(playerId, forKey: "oneSignalToken")
+            print("✅Updated Token  ✅ ")
+            //
+            //                }
+            //            })
+        }else {
+            print("❌ Won't Update Token,it's Already in UserDefauls⚠️That's userId: \(String(describing: UserDefaults.standard.value(forKey: "userId") as? Int))\n ,♎️FCMTokenNSDefault  📴📳\(String(describing: UserDefaults.standard.value(forKey: "oneSignalToken") as? String)) 📴📳\n, ♎️updatedInstanceID token: 📴📳\(playerId)📴📳\n")
+        }
+        
+    }
+    
+    func oneSignalSetup(_ launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        
+        let notificationReceivedBlock: OSHandleNotificationReceivedBlock = { notification in
+            
+            print("Received Notification: \(notification!.payload.notificationID)")
+        }
+        
+        let notificationOpenedBlock: OSHandleNotificationActionBlock = { result in
+            // This block gets called when the user reacts to a notification received
+            guard let result = result else { print("Öne signal result is EQUAL to nil ");return }
+            let payload: OSNotificationPayload = result.notification.payload
+            
+            var fullMessage = payload.body
+            print("Message = \(fullMessage)")
+            
+            if payload.additionalData != nil {
+                if payload.title != nil {
+                    let messageTitle = payload.title
+                    print("Message Title = \(messageTitle!)")
+                }
+                /*
+                 if let payload = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary, let identifier = payload["NewOrderVC"] as? String {
+                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                 let vc = storyboard.instantiateViewController(withIdentifier: identifier)
+                 self.window?.rootViewController = vc
+                 }
+                 */
+                
+                let additionalData = payload.additionalData
+                if additionalData?["actionSelected"] != nil {
+                    fullMessage = fullMessage ?? "" + "\nPressed ButtonID: \(additionalData?["actionSelected"])"
+                }
+            }
+        }
+        
+        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false,
+                                     kOSSettingsKeyInAppLaunchURL: true]
+        
         OneSignal.initWithLaunchOptions(launchOptions,
-                                        appId: "a060954f-ba6c-44aa-a0dc-2c19fff6c9fc",
-                                        handleNotificationAction: nil,
+                                        appId: "ec902011-ea98-4b6e-95f7-f040df6a2d49",
+                                        handleNotificationReceived: notificationReceivedBlock,
+                                        handleNotificationAction: notificationOpenedBlock,
                                         settings: onesignalInitSettings)
         
-        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification;
-        
-        // Recommend moving the below line to prompt for push after informing the user about
-        //   how your app will use them.
-        OneSignal.promptForPushNotifications(userResponse: { accepted in
-            print("User accepted notifications: \(accepted)")
-        })
+        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
+        OneSignal.add(self as OSSubscriptionObserver)
         
     }
-
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if(application.applicationState == .active) {
+            
+            //app is currently active, can update badges count here
+            print(" app is ACTIVE ")
+            
+        }else if(application.applicationState == .background){
+            
+            //app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
+            print(" app is background ")
+        }else if(application.applicationState == .inactive){
+            
+            //app is transitioning from background to foreground (user taps notification), do what you need when user taps here
+            print(" app is inactive ")
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
     
     func saveUserLogginData(email:String?,photoUrl : String? , uid : Int?,name:String?) {
         //        print("saving User Data email: \(String(describing: email)) , photoUrl: \(String(describing: photoUrl)),uid: \(String(describing: uid)),  , photoUrl: \(String(describing: name))")
@@ -209,20 +288,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver {
         let rootviewcontroller: UIWindow = ((UIApplication.shared.delegate?.window)!)!
         
         if isUserLoggedIn() {
-        let storyb = UIStoryboard(name: "Main", bundle: Bundle.main)
-        rootviewcontroller.rootViewController = storyb.instantiateViewController(withIdentifier: "rootNav")
+            let storyb = UIStoryboard(name: "Main", bundle: Bundle.main)
+            rootviewcontroller.rootViewController = storyb.instantiateViewController(withIdentifier: "rootNav")
         }else {
             let nav1 = UINavigationController()
             nav1.navigationBar.tintColor = .black
             let initialViewController = LoginVC(nibName: "LoginVC", bundle: nil)
             nav1.viewControllers = [initialViewController]
             rootviewcontroller.rootViewController = nav1
-
+            
         }
-       
         
- 
- 
+        
+        
+        
         let mainwindow = (UIApplication.shared.delegate?.window!)!
         mainwindow.backgroundColor = UIColor(hue: 1, saturation: 1, brightness: 1, alpha: 1)
         UIView.transition(with: mainwindow, duration: 0.55001, options: transition, animations: { () -> Void in
