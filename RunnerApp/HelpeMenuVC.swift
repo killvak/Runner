@@ -10,16 +10,22 @@ import UIKit
 
 class HelpeMenuVC: UIViewController {
     
+    @IBOutlet weak var goOfflineBtnOL: UIButton!
+    
+    let userStatesRequest = M_UserRequest()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+         handleRunnerCurrentState()
     }
+    
+ 
     
     @IBAction func menuBtnsHandler(_ sender: UIButton) {
         
@@ -58,6 +64,52 @@ class HelpeMenuVC: UIViewController {
         UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateViewController(withIdentifier: "rootNav")
     }
     
+    @IBAction func changeRunnerState(_ sender: UIButton) {
+        
+        guard let isOnline = UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool , isOnline  else {
+            goOfflineBtnOL.setTitle("Go OFFLINE", for: .normal)
+            goOfflineBtnOL.backgroundColor =  .red
+            sendUserChangeStatus(true)
+            UserDefaults.standard.setValue(true, forKey: "runnerIsOnLine")
+            ad.resumePostLocationServ()
+            return
+        }
+        sendUserChangeStatus(false)
+        goOfflineBtnOL.setTitle("Go ONLINE", for: .normal)
+        goOfflineBtnOL.backgroundColor =  .green
+        UserDefaults.standard.setValue(false, forKey: "runnerIsOnLine")
+        ad.pausePostLocationServ()
+      
+    }
+    
+    
+    
+    func handleRunnerCurrentState( ) {
+        
+        guard let isOnline = UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool , isOnline  else {
+         sendUserChangeStatus(false)
+            goOfflineBtnOL.setTitle("Go ONLINE", for: .normal)
+            goOfflineBtnOL.backgroundColor =  .green
+             ad.pausePostLocationServ()
+            return
+        }
+        sendUserChangeStatus(true)
+        goOfflineBtnOL.setTitle("Go OFFLINE", for: .normal)
+        goOfflineBtnOL.backgroundColor =  .red
+         ad.resumePostLocationServ()
+        
+    }
+    
+    func sendUserChangeStatus(_ state : Bool){
+        
+        userStatesRequest.postRunnerState(state, completed: { [weak self ] (state, sms) in
+            
+            guard state else {
+                self?.view.showSimpleAlert("Error", sms, .error)
+                return }
+        })
+        
+    }
     /*
      // MARK: - Navigation
      

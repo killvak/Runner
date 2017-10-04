@@ -53,7 +53,11 @@ class Constants  {
             let POST_RESET_PASSWORD = API.main_url + "/runner/resetPassword"
             let POST_LOGIN = API.main_url + "user/login"
             let GET_RUNNER_RATE_BY_ID = API.main_url + "rate/runner/"//ADD THE ID
-            
+           
+            let POST_GoOnline = API.main_url + runner_path + "online"
+            let POST_GoOffLine = API.main_url + runner_path + "offline"
+
+            let POST_UPDATE_USer_LOCATION = API.main_url + runner_path + "update_location"
             let POST_ONESIGNAL_PLAYID = API.main_url + "user/player_id"
         }
         
@@ -87,7 +91,9 @@ class Constants  {
             let afternoon = "afternoon"
             let evening = "evening"
             let late_night = "late_night"
-            
+            let runner_id = "runner_id"
+            let lat = "lat"
+            let lng = "lng"
             //Order Data
             let user_id  = "user_id"
             let pickup_lat = "pickup_lat"

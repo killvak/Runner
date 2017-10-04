@@ -1032,7 +1032,7 @@
                                                         <color key="textColor" red="0.59193593259999999" green="0.59583604339999996" blue="0.61236888170000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aeg-hb-dQQ" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aeg-hb-dQQ" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
                                                         <rect key="frame" x="216" y="31" width="60" height="60"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="9vx-5h-Bye"/>
@@ -1107,7 +1107,7 @@
                                                         <color key="textColor" red="0.59193593259999999" green="0.59583604339999996" blue="0.61236888170000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUx-YB-Brw" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUx-YB-Brw" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
                                                         <rect key="frame" x="216" y="31" width="60" height="60"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="kUx-YB-Brw" secondAttribute="height" multiplier="1:1" id="MnJ-G3-afG"/>
@@ -1170,7 +1170,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="o2K-d5-xdH">
                                                         <rect key="frame" x="0.0" y="10" width="280" height="108"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfb-p5-KQh" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfb-p5-KQh" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="49.5"/>
                                                                 <color key="backgroundColor" red="0.3284788132" green="0.73923146719999999" blue="0.33740055559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
@@ -1186,7 +1186,7 @@
                                                                     <action selector="confirmationSelectionHandler:" destination="Btt-MU-674" eventType="touchUpInside" id="g1k-9V-b57"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7M-uh-P75" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7M-uh-P75" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="58.5" width="280" height="49.5"/>
                                                                 <color key="backgroundColor" red="0.9354591965675354" green="0.25490492582321167" blue="0.25779616832733154" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
@@ -1223,7 +1223,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJl-o0-cdW" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJl-o0-cdW" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
                                                         <rect key="frame" x="58.5" y="60" width="203" height="45"/>
                                                         <color key="backgroundColor" red="0.3284788132" green="0.73923146719999999" blue="0.33740055559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -1326,26 +1326,26 @@
                                                                     <constraint firstItem="em7-92-axq" firstAttribute="height" secondItem="n9b-6y-Coa" secondAttribute="height" id="Obf-hL-bsb"/>
                                                                 </constraints>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Deg-54-IoP">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Deg-54-IoP">
                                                                 <rect key="frame" x="0.0" y="-0.5" width="60" height="60"/>
                                                                 <connections>
                                                                     <action selector="tabBarButtonsHandler:" destination="Btt-MU-674" eventType="touchUpInside" id="hyO-a5-ic4"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6q-tP-ZE4">
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6q-tP-ZE4">
                                                                 <rect key="frame" x="80" y="-0.5" width="60" height="60"/>
                                                                 <color key="tintColor" red="0.47110933065414429" green="0.72755724191665649" blue="0.25049501657485962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <connections>
                                                                     <action selector="tabBarButtonsHandler:" destination="Btt-MU-674" eventType="touchUpInside" id="upg-2e-dXL"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAr-Vr-pgl">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAr-Vr-pgl">
                                                                 <rect key="frame" x="160" y="-0.5" width="60" height="60"/>
                                                                 <connections>
                                                                     <action selector="tabBarButtonsHandler:" destination="Btt-MU-674" eventType="touchUpInside" id="hy5-M6-2VK"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqP-FI-kkC">
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqP-FI-kkC">
                                                                 <rect key="frame" x="240" y="-0.5" width="60" height="60"/>
                                                                 <connections>
                                                                     <action selector="tabBarButtonsHandler:" destination="Btt-MU-674" eventType="touchUpInside" id="Y5g-5n-3ta"/>
@@ -1377,7 +1377,7 @@
                                                             <constraint firstItem="Deg-54-IoP" firstAttribute="centerX" secondItem="rkj-jG-XGN" secondAttribute="centerX" id="yiD-gE-LBd"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0y-at-t0W" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0y-at-t0W" customClass="UIButtonX" customModule="RunnerApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="225" width="320" height="49.5"/>
                                                         <color key="backgroundColor" red="0.93545919659999999" green="0.25490492580000002" blue="0.25779616830000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>

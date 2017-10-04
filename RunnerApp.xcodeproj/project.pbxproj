@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840056701F84CF5F00903ABB /* BackgroundLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400566F1F84CF5F00903ABB /* BackgroundLocationManager.swift */; };
 		849C07F61F8287720012FD7A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849C07F51F8287720012FD7A /* UserNotifications.framework */; };
 		849C07F81F8287720012FD7A /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849C07F71F8287720012FD7A /* UserNotificationsUI.framework */; };
 		849C07FB1F8287720012FD7A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C07FA1F8287720012FD7A /* NotificationViewController.swift */; };
@@ -20,6 +21,8 @@
 		849F978A1F7B904E009997E1 /* L012Localizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F97861F7B904E009997E1 /* L012Localizer.swift */; };
 		849F978F1F7B956E009997E1 /* HelpeMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F978D1F7B956E009997E1 /* HelpeMenuVC.swift */; };
 		849F97901F7B956E009997E1 /* HelpeMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849F978E1F7B956E009997E1 /* HelpeMenuVC.xib */; };
+		84A046C41F852B6E0005ADB8 /* AddDelegateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C31F852B6E0005ADB8 /* AddDelegateHelpers.swift */; };
+		84A046C61F852B860005ADB8 /* AppDelegatePostLocationServ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C51F852B860005ADB8 /* AppDelegatePostLocationServ.swift */; };
 		84B356081F78F58000BE70A0 /* RegisterListOfDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B356071F78F58000BE70A0 /* RegisterListOfDataCell.swift */; };
 		84CA96921F77A922004AA3D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA96911F77A922004AA3D8 /* AppDelegate.swift */; };
 		84CA96941F77A922004AA3D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA96931F77A922004AA3D8 /* ViewController.swift */; };
@@ -83,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		71B2943EC3B75E4025B7FE18 /* Pods_RunnerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8400566F1F84CF5F00903ABB /* BackgroundLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundLocationManager.swift; sourceTree = "<group>"; };
 		849C07F41F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BreezeRunnerOneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		849C07F51F8287720012FD7A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		849C07F71F8287720012FD7A /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -99,6 +103,9 @@
 		849F97861F7B904E009997E1 /* L012Localizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L012Localizer.swift; sourceTree = "<group>"; };
 		849F978D1F7B956E009997E1 /* HelpeMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpeMenuVC.swift; sourceTree = "<group>"; };
 		849F978E1F7B956E009997E1 /* HelpeMenuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpeMenuVC.xib; sourceTree = "<group>"; };
+		84A046C21F8503FA0005ADB8 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		84A046C31F852B6E0005ADB8 /* AddDelegateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDelegateHelpers.swift; sourceTree = "<group>"; };
+		84A046C51F852B860005ADB8 /* AppDelegatePostLocationServ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegatePostLocationServ.swift; sourceTree = "<group>"; };
 		84B356071F78F58000BE70A0 /* RegisterListOfDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterListOfDataCell.swift; sourceTree = "<group>"; };
 		84CA968E1F77A922004AA3D8 /* RunnerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunnerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CA96911F77A922004AA3D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +217,8 @@
 		84CA96851F77A922004AA3D8 = {
 			isa = PBXGroup;
 			children = (
+				84A046C31F852B6E0005ADB8 /* AddDelegateHelpers.swift */,
+				84A046C51F852B860005ADB8 /* AppDelegatePostLocationServ.swift */,
 				84CA96901F77A922004AA3D8 /* RunnerApp */,
 				849C07F91F8287720012FD7A /* BreezeRunnerOneSignalNotificationServiceExtension */,
 				84CA968F1F77A922004AA3D8 /* Products */,
@@ -233,8 +242,10 @@
 				849C08081F828E0B0012FD7A /* RunnerApp.entitlements */,
 				84CA96911F77A922004AA3D8 /* AppDelegate.swift */,
 				84CA96931F77A922004AA3D8 /* ViewController.swift */,
+				84A046C21F8503FA0005ADB8 /* Location.gpx */,
 				84D4C6D41F77D49300D49B8D /* Helpers */,
 				84CA96951F77A922004AA3D8 /* Main.storyboard */,
+				8400566F1F84CF5F00903ABB /* BackgroundLocationManager.swift */,
 				84E36ABA1F7A57970010FEF7 /* OrdersCell.swift */,
 				84E36AB81F7A57500010FEF7 /* OrdersTVC.swift */,
 				849F978D1F7B956E009997E1 /* HelpeMenuVC.swift */,
@@ -565,6 +576,7 @@
 				84CA96B51F77AA10004AA3D8 /* LoginVC.swift in Sources */,
 				84D4C6F81F77E89000D49B8D /* RegisterTimeSlotCell.swift in Sources */,
 				849D583E1F795C1B00D746D1 /* ProfileVC.swift in Sources */,
+				840056701F84CF5F00903ABB /* BackgroundLocationManager.swift in Sources */,
 				84D4C6E81F77D50500D49B8D /* UIViewXRadialGradient.swift in Sources */,
 				84D4C6E61F77D50500D49B8D /* UIViewControllerX.swift in Sources */,
 				849F978A1F7B904E009997E1 /* L012Localizer.swift in Sources */,
@@ -576,11 +588,13 @@
 				84D4C6E41F77D50500D49B8D /* UITextFieldX.swift in Sources */,
 				84D4C6CF1F77B06E00D49B8D /* Helpers.swift in Sources */,
 				84D4C6D11F77B18600D49B8D /* RegisterVC.swift in Sources */,
+				84A046C41F852B6E0005ADB8 /* AddDelegateHelpers.swift in Sources */,
 				849F97891F7B904E009997E1 /* MirroringViewController.swift in Sources */,
 				849F97881F7B904E009997E1 /* MirroringLabel.swift in Sources */,
 				849F97871F7B904E009997E1 /* L102Language.swift in Sources */,
 				84B356081F78F58000BE70A0 /* RegisterListOfDataCell.swift in Sources */,
 				84E36ABD1F7A7CF30010FEF7 /* NewOrderVC.swift in Sources */,
+				84A046C61F852B860005ADB8 /* AppDelegatePostLocationServ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

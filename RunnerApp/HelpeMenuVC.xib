@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HelpeMenuVC" customModule="RunnerApp" customModuleProvider="target">
             <connections>
+                <outlet property="goOfflineBtnOL" destination="uxB-K9-anp" id="eIx-hL-euT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -64,6 +65,9 @@
                     <state key="normal" title="GO OFFLINE">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="changeRunnerState:" destination="-1" eventType="touchUpInside" id="5S8-I3-nKh"/>
+                    </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Jkd-P4-jA6">
                     <rect key="frame" x="0.0" y="81" width="375" height="161"/>

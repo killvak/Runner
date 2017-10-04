@@ -85,27 +85,27 @@ class ProfileVC: UIViewController {
     }
     
     @IBAction func labelEditAction(_ sender: UIButton) {
-        print("that's the sender tag: \(sender.tag)" )
-        
-        let alert = CDAlertView(title: "Edit Text", message: "", type: .notification)
-        let doneAction = CDAlertViewAction(title: "sure", font: nil, textColor: nil, backgroundColor: nil) {[weak self ] (action) in
-            
-            guard  let x = alert.textFieldText , !x.isBlank else {
-                return
-            }
-            
-            self?.setLabelsEditText(sender.tag, x )
-        
-        }
-        let nevermindAction = CDAlertViewAction(title: "Cancel")
-        alert.isTextFieldHidden = false
-        alert.textFieldPlaceholderText = "*Enter Your Text"
-        
-        
-        alert.add(action: nevermindAction)
-        alert.add(action: doneAction)
-
-        alert.show()
+//        print("that's the sender tag: \(sender.tag)" )
+//        
+//        let alert = CDAlertView(title: "Edit Text", message: "", type: .notification)
+//        let doneAction = CDAlertViewAction(title: "sure", font: nil, textColor: nil, backgroundColor: nil) {[weak self ] (action) in
+//            
+//            guard  let x = alert.textFieldText , !x.isBlank else {
+//                return
+//            }
+//            
+//            self?.setLabelsEditText(sender.tag, x )
+//        
+//        }
+//        let nevermindAction = CDAlertViewAction(title: "Cancel")
+//        alert.isTextFieldHidden = false
+//        alert.textFieldPlaceholderText = "*Enter Your Text"
+//        
+//        
+//        alert.add(action: nevermindAction)
+//        alert.add(action: doneAction)
+//
+//        alert.show()
     }
 
     func setLabelsEditText(_ tag : Int , _ text : String) {

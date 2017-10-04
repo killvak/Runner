@@ -324,6 +324,104 @@ class M_UserRequest  {
         }
     }
     
+    
+    func postSendUserLocation(_ lat : Double ,_ lng : Double , completed : @escaping ( Bool,String)->()) {
+        
+        let url = source.POST_UPDATE_USer_LOCATION
+        print("URL: is POST_UPDATE_USer_LOCATION URL : \(url)")
+        let parameters : Parameters = [
+            "runner_id":ad.USER_ID,
+            "lat":"\(lat)",
+            "lng":"\(lng)"
+            
+        ]
+        //        print(parameters)
+        //        let configuration = URLSessionConfiguration.default
+        //        configuration.timeoutIntervalForResource = TimeInterval(60)
+        //        configuration.timeoutIntervalForRequest = TimeInterval(60)
+        //
+        //        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        sessionManager.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: source.HEADER).responseJSON { (response:DataResponse<Any>) in
+            //            print(response.result)
+            switch(response.result) {
+            case .success(_):
+                guard response.result.error == nil, let value = response.result.value  else {
+                    
+                    // got an error in getting the data, need to handle it
+                    //                    print("error fetching data from url")
+                    //                    print(response.result.error?.localizedDescription)
+                    return
+                    
+                }
+                let json = JSON( value) // SwiftyJSON
+                //                print("that is  getMenuData getting the data Mate : %@", response.result.value)
+                let parm = Constants.API.Parameters()
+                
+                let status = json[parm.message].string != nil ? true : false
+                let sms = json[parm.message].string ?? json[parm.error][parm.message].stringValue
+                                print("that's \(status)that's status \(sms)")
+                
+                completed(  status ,sms)
+                break
+                
+            case .failure(_) :
+                //                             if let data = response.data {
+                //                               let json = String(data: data, encoding: String.Encoding.utf8)
+                //                                 print("Failure Response: \(json)")
+                //                              }
+                print("Failer: \(String(describing: response.result.error?.localizedDescription))")
+                //
+                completed(     false,self.parSource.requestHasFailed)
+                break
+            }
+        }
+    }
+    
+    
+    func postRunnerState(_ runnerWillGoOnLine : Bool ,  completed : @escaping ( Bool,String)->()) {
+        
+        let url = runnerWillGoOnLine ? source.POST_GoOnline : source.POST_GoOffLine
+        print("URL: is postRunnerState URL : \(url)")
+        let parameters : Parameters = [
+            "id":ad.USER_ID,
+         ]
+        
+        sessionManager.request(url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: source.HEADER).responseJSON { (response:DataResponse<Any>) in
+            //            print(response.result)
+            switch(response.result) {
+            case .success(_):
+                guard response.result.error == nil, let value = response.result.value  else {
+                    
+                    // got an error in getting the data, need to handle it
+                    //                    print("error fetching data from url")
+                    //                    print(response.result.error?.localizedDescription)
+                    return
+                    
+                }
+                let json = JSON( value) // SwiftyJSON
+                //                print("that is  getMenuData getting the data Mate : %@", response.result.value)
+                let parm = Constants.API.Parameters()
+                
+                let status = json[parm.message].string != nil ? true : false
+                let sms = json[parm.message].string ?? json[parm.error][parm.message].stringValue
+                print("that's \(status)that's status \(sms)")
+                
+                completed(  status ,sms)
+                break
+                
+            case .failure(_) :
+                //                             if let data = response.data {
+                //                               let json = String(data: data, encoding: String.Encoding.utf8)
+                //                                 print("Failure Response: \(json)")
+                //                              }
+                print("Failer: \(String(describing: response.result.error?.localizedDescription))")
+                //
+                completed(     false,self.parSource.requestHasFailed)
+                break
+            }
+        }
+    }
+    
 //    func multiPart1(    imageDict : [String:UIImage],completed : @escaping (User_DataModel?,Bool,String)->()) {
 //        let  parameters  : [String:Any] = [
 //            "id": "39",

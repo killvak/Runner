@@ -102,7 +102,7 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
            if  self.navigationController == nil {
                 self.dismiss(animated: true, completion: nil)
            }else {
-            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.popViewController(animated: true)
             }
             return
         }
