@@ -10,7 +10,9 @@ import UIKit
 
 class RegisterTimeSlotCell: UITableViewCell {
 
+    @IBOutlet weak var noBtnAct: UIButton!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var yesBtnAct: UIButton!
     @IBOutlet weak var yesBtn: UIButton!
     @IBOutlet weak var noBtn: UIButton!
     override func awakeFromNib() {

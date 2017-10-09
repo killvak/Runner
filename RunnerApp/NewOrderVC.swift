@@ -9,7 +9,15 @@
 import UIKit
 import CoreLocation
 
-class NewOrderVC: UIViewController , CLLocationManagerDelegate {
+fileprivate  enum orderStatus_Enum : Int {
+    case Pending = 0
+    case Accepted = 1
+    case One_The_Way = 2
+    case Arrived = 3
+    case Cancelled = 4
+    case NotAccepted = 5
+}
+class NewOrderVC: UIViewController , CLLocationManagerDelegate  {
     
     @IBOutlet weak var modelViewNavBarHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -30,16 +38,21 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var declineBtnOL: UIButtonX!
     
     var orderDetails : OrderDataAndDetails?
+ 
+    private let userRequest = M_UserRequest()
     
+  
+
+
     var orderIsActive = 0 { // 0 > pending request  , 1 > order in process  and  2 > order is done
         didSet {
-            print("Order value is :\(orderIsActive)")
             guard viewAppeared else { return }
-            print("viewAppeared/ Order value  is :\(orderIsActive)")
 
-            orderActivationHandler()
+        setupViewUserOrderStateNum()
         }
     }
+    
+  
     // the dest used
     var destLat : Double = 0
     var destLong : Double = 0
@@ -48,65 +61,57 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     var dropOfflang : Double = 0
     var pickupLat : Double = 0
     var pickupLng : Double = 0
-    
+    private var currentOrderStatus =  orderStatus_Enum.Accepted
     ////
     var viewAppeared = false
     let locationManager = CLLocationManager()
     
+    
+    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        
-        //        if CLLocationManager.authorizationStatus() == .notDetermined {
-        //            self.locationManager?.requestWhenInUseAuthorization()
-        //        }
-        //
-        //        locationManager?.distanceFilter = kCLDistanceFilterNone
-        //        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        //        locationManager?.startUpdatingLocation()
-        locationManager.requestWhenInUseAuthorization()
-        
-        
-        if CLLocationManager.locationServicesEnabled(){
+ //        guard let data = orderDetails else {
+//            dismissViewHandler()
+//            return
+//        }
+         locationManager.requestWhenInUseAuthorization()
+    
+         if CLLocationManager.locationServicesEnabled(){
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
-        
+       
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if self.isModal()  {
             self.modelViewNavBarHeight.constant = 45
         }
-        
-        if orderIsActive == 0  {
-            orderIsNotActiveViewSetup()
-        }
-        
+        setupViewUserOrderStateNum()
         orderActivationHandler()
         setData()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.viewAppeared = true
 //        orderActivationHandler()
+        viewAppeared = true
     }
     
+    func  dismissViewHandler() {
+        if  self.navigationController == nil {
+            self.dismiss(animated: true, completion: nil)
+        }else {
+                        self.navigationController?.popViewController(animated: true)
+        }
+      }
     func setData() {
         
-        guard let data = orderDetails else {
-           if  self.navigationController == nil {
-                self.dismiss(animated: true, completion: nil)
-           }else {
-//            self.navigationController?.popViewController(animated: true)
-            }
-            return
-        }
-        
+       
+        guard  let data = orderDetails else { return }
         orderTitle?.text = data.order_details
         deliverCharges?.text = "\(data.total_price)"
         pickupAddressDetailsLbl?.text = data.pickup_address
@@ -116,7 +121,23 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         pickupLat = data.pickup_lat
         pickupLng = data.pickup_lng
     }
-    
+    func setupViewUserOrderStateNum() {
+        switch orderIsActive {
+        case 0 : currentOrderStatus = .Pending
+        case 1 : currentOrderStatus = .Accepted
+        case 2 : currentOrderStatus = .One_The_Way
+        case 3 : currentOrderStatus = .Arrived
+        case 4 : currentOrderStatus = .Cancelled
+        case 5 : currentOrderStatus = .NotAccepted
+            
+        default:
+            break
+        }
+        print("Order value is :\(orderIsActive)")
+        print("viewAppeared/ Order value  is :\(orderIsActive)")
+        
+        orderActivationHandler()
+    }
     @IBAction func dismissView(_ sender: UIButton) {
 //        if self.isModal()  {
 //
@@ -130,63 +151,78 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     }
     
     func orderActivationHandler() {
-        
-    
-        
-        
-        switch orderIsActive {
-        case 0 :
+         switch   currentOrderStatus {
+        case .Pending:
+            self.orderStatusView.alpha = 0
             self.orderStatusViewHeight.constant = 128
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: 0.3, animations: {
                 self.orderIsNotActiveViewSetup()
             }, completion: nil)
-        case 1 :
+         case .Accepted:
             orderInProcessSetup()
-        default : //2
-            if  self.orderStatusViewHeight.constant == 128 {
+         case .One_The_Way:
+            orderEndedSetup()
+         case .Arrived:
+             orderEndedSetup()
+         case .Cancelled:
+             dismissViewHandler()
+         case .NotAccepted :
+           dismissViewHandler()
+        }
+        
+        
+     
+    }
+    
+    func orderEndedSetup() {
+        if  self.orderStatusViewHeight.constant == 128 {
+            
+            self.declineBtnOL.alpha = 0
+            self.orderStatusBar.alpha = 0
+            self.orderStateLbl.alpha = 1
+            self.callCustomerTopConstraint.constant  = 50
+            orderInProcessSetup()
+            
+        }else if self.orderStatusViewHeight.constant == 274.67 {
+            
+            self.view.isUserInteractionEnabled = false
+            if currentOrderStatus == .Arrived  || currentOrderStatus == .Cancelled || currentOrderStatus == .One_The_Way {
+                self.declineBtnOL.alpha = 0
+                self.orderStatusBar.alpha = 0
+            }
+            UIView.animate(withDuration: 0.45, animations: {
                 
                 self.declineBtnOL.alpha = 0
                 self.orderStatusBar.alpha = 0
                 self.orderStateLbl.alpha = 1
-                self.callCustomerTopConstraint.constant  = 50
-                orderInProcessSetup()
-                
-            }else if self.orderStatusViewHeight.constant == 274.67 {
-                
-                self.view.isUserInteractionEnabled = false
-                UIView.animate(withDuration: 0.45, animations: {
-                    
-                    self.declineBtnOL.alpha = 0
-                    self.orderStatusBar.alpha = 0
-                    self.orderStateLbl.alpha = 1
-                    self.callCustomerTopConstraint.constant = 50
-                    self.orderStatusViewHeight.constant = 200
-                    self.view.layoutIfNeeded()
-                }){(true) in
-                    DispatchQueue.main.async {
-                        self.view.isUserInteractionEnabled = true
-                    }
-                    }
-                
+                self.callCustomerTopConstraint.constant = 50
+                self.orderStatusViewHeight.constant = 200
+                self.view.layoutIfNeeded()
+            }){(true) in
+                DispatchQueue.main.async {
+                    self.view.isUserInteractionEnabled = true
+                }
             }
-            
-            
-            
             
         }
     }
-    
+    @IBOutlet weak var scrollVContentViewHeight: UIView!
     func orderInProcessSetup() {
         
         self.orderStatusViewHeight?.constant = 274.67
         self.view.layoutIfNeeded()
+        var situationalScrollViewPlusHeight : CGFloat = 0
         
-        
-        var offset = scrollView.contentOffset
-        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height
-        scrollView.setContentOffset(offset, animated: true)
-        
+        if !viewAppeared {
+           situationalScrollViewPlusHeight = 64
+        }
+//        var offset = scrollView.contentOffset
+//        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height
+//        scrollView.setContentOffset(offset, animated: true)
+        let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height + situationalScrollViewPlusHeight)
+        print("thats scrollvoew contentSize : \(scrollView.contentSize.height) and view height : \(scrollVContentViewHeight.bounds.size.height)")
+        scrollView.setContentOffset(bottomOffset, animated: true)
         
         UIView.animate(withDuration: 0.3, animations: {
             self.confirmationSelectionView.alpha = 0
@@ -200,9 +236,9 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }, completion: nil)
     }
     func  orderIsNotActiveViewSetup(){
+        self.orderStatusView.alpha = 0
         self.orderStatusView.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
         self.confirmationSelectionView.transform = .identity
-        self.orderStatusView.alpha = 0
         self.confirmationSelectionView.alpha = 1
     }
     
@@ -228,13 +264,49 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
     }
     
     @IBAction func confirmationSelectionHandler(_ sender: UIButtonX) {
-        if sender.tag == 0 { // accept
-            orderIsActive = 1
-        }else { // Decline
-            orderIsActive = 2
-        }
+        
+//
+    orderReuqestHandler(Constants.API.URLS_Post_Enum.POST_Runner_Accept_Order)
+    
+     }
+ 
+    @IBAction func cancelOrderRequest(_ sender: UIButtonX) {
+        orderReuqestHandler(Constants.API.URLS_Post_Enum.POST_Reject_Order)
+
+    }
+    
+    
+    func orderReuqestHandler(_ type : Constants.API.URLS_Post_Enum  ) {
+        ad.isLoading()
+        guard let data = orderDetails else { return }
+        let parm : [String: Any] = [
+            "runner_id" : ad.USER_ID,
+            "order_id" : data.orderID
+        ]
+        userRequest.post_Normal_Request(type , parm, completed: { [weak self ](state, sms) in
+            
+            guard state else {
+                DispatchQueue.main.async {
+                    ad.killLoading()
+                    self?.view.showSimpleAlert("Error", sms, .error)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                ad.killLoading()
+                guard type == Constants.API.URLS_Post_Enum.POST_Runner_Accept_Order else {
+                    self?.dismissViewHandler()
+                    return
+                }
+                self?.view.showSimpleAlert("Success", "", .success)
+                self?.orderIsActive  = 1
+                return
+            }
+        })
     }
     @IBAction func callCustomer(_ sender: UIButtonX) {
+        print("thats scrollvoew contentSize : \(scrollView.contentSize.height) and view height : \(scrollVContentViewHeight.bounds.size.height)")
+
         let tele  = orderDetails?.phone
         if let phoneCallURL:URL = URL(string: "tel:\(tele)") {
             let application:UIApplication = UIApplication.shared
@@ -253,9 +325,9 @@ class NewOrderVC: UIViewController , CLLocationManagerDelegate {
         }
     }
     @IBAction func declineOrderHandler(_ sender: UIButtonX) {
-        orderIsActive = 2
+//        orderIsActive = 2
         
-//        declineAlertHandler()
+        declineAlertHandler()
        
     }
     

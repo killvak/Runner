@@ -21,6 +21,10 @@ class LoginVC: UIViewController , UITextFieldDelegate{
         // Do any additional setup after loading the view.
         emailTxt.delegate = self
         passwordTxt.delegate = self
+                 let email1 = "test@test.com"
+                let password1 = "qqqqqqqq"
+        self.emailTxt.text = email1
+        self.passwordTxt.text = password1
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -36,17 +40,17 @@ class LoginVC: UIViewController , UITextFieldDelegate{
     
     @IBAction func loginBtnAct(_ sender: UIButton) {
         
-//        guard  let email = emailTxt.text , email.isEmail else {
-//            print("invalid email")
-//            self.view.showSimpleAlert("Warning", "Invalid Email address", .warning)
-//            return
-//        }
-//        guard let password = passwordTxt.text , password.isValidPassword else {
-//            self.view.showSimpleAlert("Warning", "Password has to contain more than 8 characters", .warning)
-//            return
-//        }
-        let email = "2@1.com"
-        let password = "qqqqqqqq"
+        guard  let email = emailTxt.text , email.isEmail else {
+            print("invalid email")
+            self.view.showSimpleAlert("Warning", "Invalid Email address", .warning)
+            return
+        }
+        guard let password = passwordTxt.text , password.isValidPassword else {
+            self.view.showSimpleAlert("Warning", "Password has to contain more than 8 characters", .warning)
+            return
+        }
+//        let email = "test@test.com"
+//        let password = "qqqqqqqq"
           sender.alpha = 0.5
         self.view.isUserInteractionEnabled = false
         loginRequest.postLoginRequest(email: email, password: password) { [weak self] (data, state, sms ) in
@@ -60,21 +64,19 @@ class LoginVC: UIViewController , UITextFieldDelegate{
                 return
               }
             guard let data = data  else {
+                self?.view.isUserInteractionEnabled = true
                 DispatchQueue.main.async {
                     sender.alpha = 1
-                    self?.view.isUserInteractionEnabled = true
                 }
                 return }
             DispatchQueue.main.async {
-                self?.view.isUserInteractionEnabled = false
-            }
+
             let alert = CDAlertView(title: "Welcome Back", message: "Welcome Back", type: .success)
             alert.hideAnimations = { (center, transform, alpha) in
-                self?.view.isUserInteractionEnabled = false
-                transform = CGAffineTransform(scaleX: 3, y: 3)
+                 transform = CGAffineTransform(scaleX: 3, y: 3)
                 alpha = 0
                 DispatchQueue.main.async {
- 
+                    ad.setupLocationManager()
                          ad.saveUserLogginData(email: data.email, photoUrl: nil, uid: data.id, name: data.name)
                         ad.reloadWithAnimation()
                         
@@ -82,7 +84,7 @@ class LoginVC: UIViewController , UITextFieldDelegate{
             }
             alert.hideAnimationDuration = 0.45
             alert.show()
- 
+            }
     }
         }
         

@@ -28,13 +28,11 @@ class HelpeMenuVC: UIViewController {
  
     
     @IBAction func menuBtnsHandler(_ sender: UIButton) {
-        
-        ad.saveUserLogginData(email: nil, photoUrl: nil, uid: nil, name: nil)
-        ad.reloadWithAnimation()
+ 
     }
     
     
-    @IBAction func langSwitch(_ sender: UISwitch) {
+    @IBAction func langSwitch(_ sender: UISwitch) {/*
         var transition: UIViewAnimationOptions = .transitionFlipFromLeft
         if L102Language.currentAppleLanguage() == "en" {
             L102Language.setAppleLAnguageTo(lang: "ar")
@@ -53,7 +51,7 @@ class HelpeMenuVC: UIViewController {
         }) { (finished) -> Void in
             
             
-        }
+        }*/
     }
     @IBAction func backBtnAct(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -67,18 +65,18 @@ class HelpeMenuVC: UIViewController {
     @IBAction func changeRunnerState(_ sender: UIButton) {
         
         guard let isOnline = UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool , isOnline  else {
-            goOfflineBtnOL.setTitle("Go OFFLINE", for: .normal)
-            goOfflineBtnOL.backgroundColor =  .red
+//            goOfflineBtnOL.setTitle("Go OFFLINE", for: .normal)
+//            goOfflineBtnOL.backgroundColor =  .red
             sendUserChangeStatus(true)
-            UserDefaults.standard.setValue(true, forKey: "runnerIsOnLine")
-            ad.resumePostLocationServ()
+//            UserDefaults.standard.setValue(true, forKey: "runnerIsOnLine")
+//            ad.resumePostLocationServ()
             return
         }
         sendUserChangeStatus(false)
-        goOfflineBtnOL.setTitle("Go ONLINE", for: .normal)
-        goOfflineBtnOL.backgroundColor =  .green
-        UserDefaults.standard.setValue(false, forKey: "runnerIsOnLine")
-        ad.pausePostLocationServ()
+//        goOfflineBtnOL.setTitle("Go ONLINE", for: .normal)
+//        goOfflineBtnOL.backgroundColor =  .green
+//        UserDefaults.standard.setValue(false, forKey: "runnerIsOnLine")
+//        ad.pausePostLocationServ()
       
     }
     
@@ -87,13 +85,11 @@ class HelpeMenuVC: UIViewController {
     func handleRunnerCurrentState( ) {
         
         guard let isOnline = UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool , isOnline  else {
-         sendUserChangeStatus(false)
-            goOfflineBtnOL.setTitle("Go ONLINE", for: .normal)
+             goOfflineBtnOL.setTitle("Go ONLINE", for: .normal)
             goOfflineBtnOL.backgroundColor =  .green
              ad.pausePostLocationServ()
             return
         }
-        sendUserChangeStatus(true)
         goOfflineBtnOL.setTitle("Go OFFLINE", for: .normal)
         goOfflineBtnOL.backgroundColor =  .red
          ad.resumePostLocationServ()
@@ -102,11 +98,15 @@ class HelpeMenuVC: UIViewController {
     
     func sendUserChangeStatus(_ state : Bool){
         
-        userStatesRequest.postRunnerState(state, completed: { [weak self ] (state, sms) in
+        userStatesRequest.postRunnerState(state, completed: { [weak self ] (statee, sms) in
             
-            guard state else {
+            guard statee else {
                 self?.view.showSimpleAlert("Error", sms, .error)
                 return }
+            UserDefaults.standard.setValue(state, forKey: "runnerIsOnLine")
+            DispatchQueue.main.async {
+                self?.handleRunnerCurrentState( )
+            }
         })
         
     }

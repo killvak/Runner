@@ -9,6 +9,9 @@
 import UIKit
 import CDAlertView
 
+protocol doneWithRegisterProtocol : class  {
+    func doneWithRegister()
+}
 class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,7 +23,8 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     @IBOutlet weak var profilePickingBtn: UIButton!
     @IBOutlet weak var licensePickingBtn: UIButton!
     @IBOutlet weak var VehicleInsurancePickingBtn: UIButton!
-    
+ 
+    weak var delegate : doneWithRegisterProtocol?
     var registerParameters : [String:Any] = [:]
 
     var the3FieldsDict : [String:String] = [:]
@@ -79,21 +83,36 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterTimeSlotCell", for: indexPath) as! RegisterTimeSlotCell
         cell.name.text = shifts[indexPath.row]
-        cell.yesBtn.tag = indexPath.row
-        cell.noBtn.tag = indexPath.row
-        cell.yesBtn.addTarget(self, action: #selector(yesBtnSelected(_:)), for: .touchUpInside)
-        cell.noBtn.addTarget(self, action: #selector(noBtnSelected(_:)), for: .touchUpInside)
-        
-        return cell
-    }
+        cell.yesBtnAct.tag = indexPath.row
+        cell.noBtnAct.tag = indexPath.row
+        cell.yesBtnAct.addTarget(self, action: #selector(yesBtnSelected(_:)), for: .touchUpInside)
+        cell.noBtnAct.addTarget(self, action: #selector(noBtnSelected(_:)), for: .touchUpInside)
+        return cell    }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil 
     }
     
     @IBAction func imageSelectionTrigger(sender : UIButton) {
-        photoFromLibrary()
+
 //        shootPhoto()
+        let actionSheet :UIAlertController = UIAlertController(title: "Image Selection",  message: "Select your image from : " , preferredStyle: .actionSheet
+            
+        )
+        let cancle:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let photos :UIAlertAction = UIAlertAction(title: "Photos Gallery", style: .default) { UIAlertAction in
+         self.photoFromLibrary()
+        }
+        let camera :UIAlertAction = UIAlertAction(title: "User Camera", style: .default) { UIAlertAction in
+              self.shootPhoto()
+        }
+        actionSheet.addAction(photos)
+
+        actionSheet.addAction(camera)
+
+        actionSheet.addAction(cancle)
+        self.present(actionSheet, animated: true, completion: nil)
+
         currentBtntag = sender.tag
     }
     func yesBtnSelected(_ sender : UIButton) {
@@ -156,24 +175,29 @@ class RegisterationDetailsVC: UIViewController , UITableViewDelegate , UITableVi
                 self?.view.showSimpleAlert("Error", data.2, .error)
                 return
             }
-            print("that's the id : \(dataa.id)")
-            ad.saveUserLogginData(email: dataa.email, photoUrl: nil, uid: dataa.id, name: dataa.name)
-            print("that's the USER_ID : \(ad.USER_ID)")
+//            print("that's the id : \(dataa.id)")
+//            ad.saveUserLogginData(email: dataa.email, photoUrl: nil, uid: dataa.id, name: dataa.name)
+//            print("that's the USER_ID : \(ad.USER_ID)")
 
     
         
+//            DispatchQueue.main.async {
+//                self?.view.isUserInteractionEnabled = false
+//            }
             DispatchQueue.main.async {
-                self?.view.isUserInteractionEnabled = false
+                self?.view.isUserInteractionEnabled = false 
             }
-        let alert = CDAlertView(title: "Done", message: "Welcome in Breeze", type: .success)
+        let alert = CDAlertView(title: "Done", message: "Welcome in Breeze,we will send u Message Shortly to fully activate your account", type: .success)
         alert.hideAnimations = { (center, transform, alpha) in
             transform = CGAffineTransform(scaleX: 3, y: 3)
             alpha = 0
             DispatchQueue.main.async {
-                    ad.reloadWithAnimation()
+                self?.view.isUserInteractionEnabled = true
+
+                self?.navigationController?.popToRootViewController(animated: true)
               }
         }
-        alert.hideAnimationDuration = 0.45
+        alert.hideAnimationDuration = 1.85
         alert.show()
 //
         }

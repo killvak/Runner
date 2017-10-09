@@ -12,6 +12,8 @@ class ForgotPasswordVC: UIViewController {
 
     @IBOutlet weak var sendBtnOL: UIButton!
     @IBOutlet weak var emailTxt: UITextField!
+    
+    let userRequest = M_UserRequest()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +34,18 @@ class ForgotPasswordVC: UIViewController {
     
 
     @IBAction func sendBtnAct(_ sender: UIButton) {
+        guard let email = emailTxt.text , email.isEmail else {
+            self.view.showSimpleAlert("Error", "invalid Email Format", .error)
+            return
+        }
+        userRequest.postForgotPassword(email: email ) { [weak self ] (state, sms ) in
+            guard state else {
+                self?.view.showSimpleAlert("Error", sms, .error)
+                return
+            }
+            self?.view.showSimpleAlert("Success", "Please check your Email for the new Password", .success)
+            self?.navigationController?.popViewController(animated: true )
+        }
     }
     
     

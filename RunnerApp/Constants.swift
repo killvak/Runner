@@ -24,7 +24,26 @@ class Constants  {
     class API {
         
         private static let main_url = "http://192.168.1.140/breeze/api/v1/"
+//       private static let main_url = "http://54.171.158.175/breeze/api/v1/"
+
         private static let runner_path  = "runner/"
+        
+        enum URLS_Post_Enum {
+            case POST_Registeration 
+            case POST_Runner_Accept_Order
+            case POST_Reject_Order
+            func stringValue() -> String {
+                switch self {
+                case .POST_Registeration:
+                    return API.main_url + runner_path + "register"
+                case.POST_Runner_Accept_Order :
+                    return  API.main_url + runner_path + "accept_order"
+                case .POST_Reject_Order :
+                    return  API.main_url + runner_path + "reject_order"
+                }
+            }
+        }
+     
         
         
         class URLS {
@@ -59,6 +78,11 @@ class Constants  {
 
             let POST_UPDATE_USer_LOCATION = API.main_url + runner_path + "update_location"
             let POST_ONESIGNAL_PLAYID = API.main_url + "user/player_id"
+            let POST_Runner_Accept_Order = API.main_url + runner_path + "accept_order"
+            let Get_HomePage = API.main_url + runner_path + "home"
+
+            let GET_Runner_Complete_Orders = API.main_url + runner_path + "completed_orders"
+
         }
         
         class Parameters {
@@ -71,6 +95,7 @@ class Constants  {
             let error = "error"
             let status = "status"
             let data = "data"
+            let image = "image"
             //Register
             let name = "name"
             let first_name = "first_name"
@@ -106,6 +131,34 @@ class Constants  {
             let total_price = "total_price"
             let distance = "distance"
             let expected_time = "expected_time"
+            
+            // Order General Data
+         let order_status =  "order_status"
+           let paid =  "paid"
+           let accepted_at =  "accepted_at"
+            let recived_at = "recived_at"
+            let arrived_at = "arrived_at"
+            let cancelled_by = "cancelled_by"
+            let created_at = "created_at"
+           let updated_at =  "updated_at"
+            
+            //HomePage
+            let from = "from"
+            let lastPage = "lastPage"
+            let perPage = "perPage"
+            let totalOrders = "totalOrders"
+            let runnerRate = "runnerRate"
+            let name_ar = "name_ar"
+            let name_en = "name_en"
+            let desc_ar = "desc_ar"
+            let desc_en = "desc_en"
+           let cuisines = "cuisines"
+            let address = "address"
+            let delivery_time = "delivery_time"
+            let open_at = "open_at"
+            let close_at = "close_at"
+            let latitude = "latitude"
+            let longitude = "longitude"
         }
         
     }

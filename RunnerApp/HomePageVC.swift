@@ -17,7 +17,10 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var ratingView: SwiftyStarRatingView!
     @IBOutlet weak var numOfDeliveriesLbl: UILabel!
     
- 
+    @IBOutlet weak var noDataFoundLbl: UILabel!
+    let userRequest = M_UserRequest()
+    var numOfOrders = 0
+    var homeData : [OrderDataAndDetails] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,19 +28,51 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 159
         
         tableView.tableHeaderView?.frame.size = CGSize(width: tableView.frame.width, height: CGFloat(self.view.frame.height * 0.25))
         
-        self.numOfDeliveriesLbl.text = "No: of Deliveries done \n 3 "
-        
+ 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
          profileImage.addGestureRecognizer(tapGestureRecognizer)
-        
-     
-        
-     }
+      }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let isOnline = UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool , isOnline  else {
+            homeData =  []
+            self.tableView.reloadData()
+            noDataFoundLbl.alpha = 1
+            noDataFoundLbl.text = "You'r Offline"
+            return
+        }
+        noDataFoundLbl.alpha = 0
+        updateData()
+    }
+    func updateData() {
+        ad.isLoading()
+        userRequest.getHomePageData(1,14) {[weak self ] (opData, state, sms ) in
+            guard state , let data = opData , let orderData = data.ordesArray else {
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                    self?.noDataFoundLbl.alpha = 1
+                    ad.killLoading()
+                }
+
+                return
+            }
+            DispatchQueue.main.async {
+                self?.noDataFoundLbl.alpha = 0
+                self?.ratingView.value = CGFloat(data.runnerRate)
+                self?.numOfDeliveriesLbl.text = "No: of Deliveries done \n \(data.totalOrders)"
+                self?.numOfOrders = data.totalOrders
+                self?.homeData = orderData
+                self?.tableView.reloadData()
+                ad.killLoading()
+            }
+        }
+    }
     @IBAction func menuBtnHundler(_ sender: UIBarButtonItem) {
         let x = HelpeMenuVC()
         x.modalTransitionStyle = .coverVertical
@@ -69,23 +104,45 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
    
     @IBAction func viewDetails(_ sender: UIButton) {
         
+        guard numOfOrders >= 1  else {
+            self.view.showSimpleAlert("", "There's no data to view", .alarm)
+            return
+        }
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrdersTVC") as! OrdersTVC
+        
+        self.navigationController?.pushViewController(vc, animated: true)
       }
     
 
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return homeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "hi"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeOrdersCell_ID", for: indexPath) as! HomeOrdersCell
+          let data = homeData[indexPath.row]  
+        cell.orderTitle.text = data.order_details
+        cell.orderSerialNum.text = "Order_ID : \(data.orderID)"
+        cell.dateofOrder.text = data.created_at
+        
         return cell
     }
     
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         let data = homeData[indexPath.row]
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NewOrderVC") as! NewOrderVC
+        vc.orderDetails = data
+        self.navigationController?.pushViewController(vc, animated: true)
+//        present(vc, animated: true, completion: nil)
+    }
     
     
 
@@ -100,3 +157,27 @@ class HomePageVC: UIViewController , UITableViewDelegate,UITableViewDataSource{
     */
 
 }
+
+
+
+
+class HomeOrdersCell: UITableViewCell {
+    
+    @IBOutlet weak var orderTitle: UILabel!
+    @IBOutlet weak var dateofOrder: UILabel!
+    @IBOutlet weak var orderSerialNum: UILabel!
+ 
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}
+

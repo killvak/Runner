@@ -168,28 +168,28 @@ class RegisterVC: UIViewController , MICountryPickerDelegate , UITextFieldDelega
             self.view.showAlert("Warning", "First name has to contain more than 3 characters ", .warning, nil)
             return false
         }
-        
+
         guard let lName = lastNameTxt.text , !lName.isBlankOrLessThan3chr else {
             self.view.showSimpleAlert("Warning", "Last name has to contain more than 3 characters ", .warning)
             return false
         }
-        
+
         guard let email = emailTxt.text , email.isEmail else {
             self.view.showSimpleAlert("Warning", "Invalid Email address", .warning)
             return false
         }
-        
+
         guard let password = passwordTxt.text , password.isValidPassword else {
             self.view.showSimpleAlert("Warning", "Password has to contain more than 8 characters", .warning)
             return false
         }
-        
-        
+
+
         guard let mobilenum = mobileNumTxt.text , mobilenum.ispriceValue , !mobilenum.isBlankOrLessThan(8) else {
             self.view.showSimpleAlert("Warning", "PhoneNumber has to contain more than 8 characters", .warning)
             return false
         }
-        
+
         guard countryCOdeHasBeenSelected else {
             self.view.showSimpleAlert("Warning", "Country Code is Required", .warning)
             return false
@@ -209,22 +209,22 @@ class RegisterVC: UIViewController , MICountryPickerDelegate , UITextFieldDelega
             "phone" : phoneNum,
             "referal_code" : "",
             "type" : 2
-            
+
         ]
         
-        /*
-         parameters : Parameters = [
-         "email":"bbbd@nml.com" ,
-         "password" : "123456",
-         "first_name" : "ahmed",
-         "last_name" : "mohamed",
-         "phone" : "+90087328399",
-         "referal_code" : "S8i28G",
-         "type" : 2
-         
-         ]
-         
-         */
+        
+//         parameters  = [
+//         "email":"bbbikk@nml.com" ,
+//         "password" : "123456",
+//         "first_name" : "ahmed",
+//         "last_name" : "mohamed",
+//         "phone" : "28399",
+//         "referal_code" : "S8i28G",
+//         "type" : 2
+//
+//         ]
+        
+ 
         return true
     }
     /*

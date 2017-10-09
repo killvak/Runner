@@ -136,7 +136,7 @@ extension RegisterDataSelectionVC :  UITableViewDelegate,UITableViewDataSource {
 
 
 
-fileprivate class dataListItems {
+ class dataListItems {
     private var tagName : [String]?
     var listOfNames : [String] {
         guard let tgn = tagName else {

@@ -5,11 +5,11 @@
 //  Created by admin on 9/24/17.
 //  Copyright © 2017 CreativeApps. All rights reserved.
 //
-
 import UIKit
 import OneSignal
 import SwiftyJSON
 import CoreLocation
+import NVActivityIndicatorView
 
 
 @UIApplicationMain
@@ -19,17 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver{
     fileprivate var latitude: Double = 0.0
     fileprivate var longitude: Double = 0.0
     fileprivate var bgtimer = Timer()
-   fileprivate  var didGetUserLocation = false
+    fileprivate  var didGetUserLocation = false
     fileprivate let userLocationRequest = M_UserRequest()
     
     var window: UIWindow?
     
-    
+    private let activityData = ActivityData()
+
     fileprivate let oneSignalRequest = M_UserRequest()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        L102Localizer.DoTheMagic()
+//        L102Localizer.DoTheMagic()
         if  UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool == nil {
             UserDefaults.standard.set(true, forKey: "runnerIsOnLine")
         }
@@ -39,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver{
             bgtimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(AppDelegate.sendLocation), userInfo: nil, repeats: true)
             
             
-            oneSignalSetup(launchOptions)
             setupLocationManager()
         }else {
             let nav1 = UINavigationController()
@@ -53,12 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver{
             window?.rootViewController = nav1
             window?.makeKeyAndVisible()
         }
-        
+        oneSignalSetup(launchOptions)
+
         return true
     }
     
     
- 
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -168,14 +169,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver{
             rootviewcontroller.rootViewController = nav1
             
         }
-         let mainwindow = (UIApplication.shared.delegate?.window!)!
+        let mainwindow = (UIApplication.shared.delegate?.window!)!
         mainwindow.backgroundColor = UIColor(hue: 1, saturation: 1, brightness: 1, alpha: 1)
         UIView.transition(with: mainwindow, duration: 0.55001, options: transition, animations: { () -> Void in
         }) { (finished) -> Void in
- 
+            
         }
-     }
+    }
     
+    
+    func isLoading() {
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+    }
+    
+    func killLoading() {
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+    }
     var USER_ID :Int   {
         guard  let userID = UserDefaults.standard.value(forKey: "userId") as? Int else {
             //        print("error fetching userId from NSUserD.userId")
@@ -184,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , OSSubscriptionObserver{
         return userID
     }
     
-  
+    
 }
 
 // PUSH NOTIFICATION
@@ -202,18 +211,7 @@ extension AppDelegate {
     //
     
     // After you add the observer on didFinishLaunching, this method will be called when the notification subscription property changes.
-    func onOSSubscriptionChanged(_ stateChanges: OSSubscriptionStateChanges!) {
-        if !stateChanges.from.subscribed && stateChanges.to.subscribed {
-            print("Subscribed for OneSignal push notifications!")
-        }
-        print("SubscriptionStateChange: \n\(stateChanges)")
-        //The player id is inside stateChanges. But be careful, this value can be nil if the user has not granted you permission to send notifications.
-        if let playerId = stateChanges.to.userId {
-            print("Current playerId \(playerId)")
-            notificationSettings(playerId)
-            self.sendPlayerID(playerId)
-        }
-    }
+
     
     func sendPlayerID(_ playerId : String) {
         
@@ -261,7 +259,7 @@ extension AppDelegate {
         
         let notificationReceivedBlock: OSHandleNotificationReceivedBlock = { notification in
             
-            print("Received Notification: \(notification!.payload.notificationID)")
+            print("Received Notification: \(String(describing: notification?.payload.notificationID))")
         }
         
         let notificationOpenedBlock: OSHandleNotificationActionBlock = { result in
@@ -305,11 +303,27 @@ extension AppDelegate {
         
     }
     
+    func onOSSubscriptionChanged(_ stateChanges: OSSubscriptionStateChanges!) {
+        if !stateChanges.from.subscribed && stateChanges.to.subscribed {
+            print("Subscribed for OneSignal push notifications!")
+        }
+        print("SubscriptionStateChange: \n\(stateChanges)")
+        //The player id is inside stateChanges. But be careful, this value can be nil if the user has not granted you permission to send notifications.
+        if let playerId = stateChanges.to.userId {
+            print("Current playerId \(playerId)")
+            notificationSettings(playerId)
+            self.sendPlayerID(playerId)
+        }
+    }
+    
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        guard
-            let aps = userInfo[AnyHashable("custom")] as? NSDictionary,
+         
+            print("Title: \(userInfo[AnyHashable("custom")] as? NSDictionary)")
+
+          guard   let aps = userInfo[AnyHashable("custom")] as? NSDictionary,
             let orderData = aps["a"] as? NSDictionary,
-            let user_id = orderData["user_id"] as? Int
+            let user_id = orderData["user_id"] as? String
             else {
                 // handle any error here
                 return
@@ -344,7 +358,7 @@ extension AppDelegate {
     
 }
 
-    //  Post USER Location 
+//  Post USER Location
 extension AppDelegate :  CLLocationManagerDelegate  {
     
     // Just call setupLocationManager() in didFinishLaunchingWithOption.
@@ -354,6 +368,7 @@ extension AppDelegate :  CLLocationManagerDelegate  {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
@@ -388,19 +403,19 @@ extension AppDelegate :  CLLocationManagerDelegate  {
         guard let isOnline = UserDefaults.standard.value(forKey: "runnerIsOnLine") as? Bool , isOnline  else {
             return
         }
-//                 userLocationRequest.postSendUserLocation(latitude, longitude) { (status, sms) in
-//
-//                }
+                         userLocationRequest.postSendUserLocation(latitude, longitude) { (status, sms) in
+        
+                        }
     }
     
     func pausePostLocationServ() {
-         locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
         bgtimer.invalidate()
     }
     
     func resumePostLocationServ() {
         locationManager.startUpdatingLocation()
-        bgtimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(AppDelegate.sendLocation), userInfo: nil, repeats: true)
+        bgtimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(AppDelegate.sendLocation), userInfo: nil, repeats: true)
         
     }
     
@@ -412,4 +427,3 @@ extension AppDelegate :  CLLocationManagerDelegate  {
 
 
 let ad = UIApplication.shared.delegate as! AppDelegate
-

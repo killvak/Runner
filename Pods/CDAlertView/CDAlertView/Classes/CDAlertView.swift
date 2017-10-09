@@ -555,6 +555,7 @@ open class CDAlertView: UIView {
     }
 
     private func createTitleLabel() {
+        titleLabel.tag = 20
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
         titleLabel.cd_setMaxHeight(100)
@@ -564,6 +565,7 @@ open class CDAlertView: UIView {
     }
 
     private func createMessageLabel() {
+        messageLabel.tag = 20
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.textColor = messageTextColor
@@ -581,7 +583,7 @@ open class CDAlertView: UIView {
         if textFieldDelegate == nil {
             textField.delegate = self
         }
-
+        textField.tag = 20
         textField.font = textFieldFont
         textField.textColor = textFieldTextColor
         textField.clearButtonMode = .whileEditing
@@ -610,7 +612,7 @@ open class CDAlertView: UIView {
             } else {
                 button.backgroundColor = alertBackgroundColor
             }
-
+            button.tag = 20
             button.setTitle(action.buttonTitle, for: .normal)
             button.setTitleColor(action.buttonTextColor, for: .normal)
             button.titleLabel?.font = action.buttonFont

@@ -3,6 +3,9 @@ PODS:
   - CDAlertView (0.6.1)
   - IQKeyboardManagerSwift (5.0.1)
   - MICountryPicker (0.2.2)
+  - NVActivityIndicatorView (4.0.0):
+    - NVActivityIndicatorView/Presenter (= 4.0.0)
+  - NVActivityIndicatorView/Presenter (4.0.0)
   - OneSignal (2.5.4)
   - SwiftyJSON (3.1.4)
   - SwiftyStarRatingView (1.0.4)
@@ -12,6 +15,7 @@ DEPENDENCIES:
   - CDAlertView
   - IQKeyboardManagerSwift
   - MICountryPicker (from `https://github.com/mustafaibrahim989/MICountryPicker.git`, branch `master`)
+  - NVActivityIndicatorView
   - OneSignal (< 3.0, >= 2.5.2)
   - SwiftyJSON
   - SwiftyStarRatingView
@@ -31,10 +35,11 @@ SPEC CHECKSUMS:
   CDAlertView: cbb016e839ea49cddba06a78eebc2ac7978fba06
   IQKeyboardManagerSwift: 434f22d48340525bf1b92e0481a8c2539cc4a77e
   MICountryPicker: 82122c5f918bc9f9e2c510793fffd188dc8d38ce
+  NVActivityIndicatorView: 54c9b93b6f25a4f467512680c0c90c09a1095cf2
   OneSignal: da994bcf6a2efbdceaf71e389e1d05245c562899
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   SwiftyStarRatingView: a2b0057700e0adeb8e7442c55d99cb53b531d2f4
 
-PODFILE CHECKSUM: c857d465ca8559bac580cb806b7ae2538783ddcd
+PODFILE CHECKSUM: 45db296e524886977b9b8ca48c1307ecac253a21
 
 COCOAPODS: 1.3.1

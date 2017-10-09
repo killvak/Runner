@@ -15,12 +15,27 @@ pod 'SwiftyStarRatingView'
 pod 'MICountryPicker', :git => 'https://github.com/mustafaibrahim989/MICountryPicker.git', :branch => 'master'
 
 pod 'OneSignal', '>= 2.5.2', '< 3.0'
+ 
 
-
+pod 'NVActivityIndicatorView'
 
 
 end
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 target 'BreezeRunnerOneSignalNotificationServiceExtension' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
